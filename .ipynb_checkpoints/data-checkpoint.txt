@@ -1,0 +1,2485 @@
+Delivered-To: alejandro.guadarrama@nielsen.com
+Received: by 2002:a05:6358:15c9:b0:e0:b62b:eb94 with SMTP id t9csp2216986rwh;
+        Tue, 17 Jan 2023 08:06:14 -0800 (PST)
+X-Received: by 2002:a05:600c:c05:b0:3db:104:7812 with SMTP id fm5-20020a05600c0c0500b003db01047812mr3507122wmb.24.1673971574190;
+        Tue, 17 Jan 2023 08:06:14 -0800 (PST)
+ARC-Seal: i=3; a=rsa-sha256; t=1673971574; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=sL9FPxPlBkghkSKqGd4KM1a1+CRUk2ShC08VMdlvnRatCwin0E05VORvPpKswN3XKA
+         2n6rsIvuIRxrhj4ogXk/HEhkQNW1D5A3BB3MgeOWkGLYrKlB+mZkFpYOD5mt1LiOD4ix
+         T01urP0VbZiN/r6CdjSjIWS1nIbwOv4xzJtdPNrbRvxz4nwVUgGlAs3c+gfrAb17O/Q4
+         8oU+YCJRT7gHoePpFauUMwtRtS4/U4A+zzaGXw6NVrpVnZCn36lgwkGnKeSjjkDuTHKv
+         ERF5PYGsu6+ftS3yhoXLJtaACt6TTUBEtruaCA08+Qn0Xp/xYuMPT4UgREwdvoL4tZpn
+         Gx9Q==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-archive:list-help:list-post:list-id:mailing-list:precedence
+         :message-id:content-transfer-encoding:subject:date:to:from
+         :mime-version:dkim-signature;
+        bh=4h+0jLuQI3QXHPRakjr8a4iqb8QmPnUNBdFBQO95M7M=;
+        b=I4wRq9flB7+JLi4VaNZg5hgHlIuFp0xYeui+04ZNkQxvElpB/vtXcBYOoAHLx+DKnA
+         xSw0zH6uigvJHRCq6omrNhOZvbmLp3zlFO+FsfBXpEwE33+3YMndhxNEZK2Fyml2TKG4
+         TuQ6rG79AZC/PuKvxZrKYEeQnTe6ebBzWDNm2gCSunkwm0aNF9aoJmhizSiQ4PZvx2OH
+         XzHpMPDK+4Kx1gzkve8JfqQ/ZUQWBMz9Dlm93qD/+tWW/8yV0BlD8ger5UcM9wXBEsx4
+         UZGNpm5bUZCGPVtZ6NX/bF5gZZJCSMoTx/pjD/yjMyBm8JHbdI+2B6VT9s3xDXmKY0oE
+         azBA==
+ARC-Authentication-Results: i=3; mx.google.com;
+       dkim=pass header.i=@nielsen.com header.s=dkim-gsuite-connect header.b=OdtQWYHJ;
+       arc=pass (i=2 spf=pass spfdomain=nielsen.com dkim=pass dkdomain=nielsen.com dmarc=pass fromdomain=nielsen.com);
+       spf=pass (google.com: domain of mxhubteam+bncbaabb5motopamgqeztl6kqy@nielsen.com designates 209.85.220.69 as permitted sender) smtp.mailfrom=mxhubteam+bncBAABB5MOTOPAMGQEZTL6KQY@nielsen.com;
+       dmarc=pass (p=QUARANTINE sp=REJECT dis=NONE) header.from=nielsen.com
+Return-Path: <mxhubteam+bncBAABB5MOTOPAMGQEZTL6KQY@nielsen.com>
+Received: from mail-sor-f69.google.com (mail-sor-f69.google.com. [209.85.220.69])
+        by mx.google.com with SMTPS id m8-20020a05600c3b0800b003db05b1b3a6sor934271wms.1.2023.01.17.08.06.14
+        for <alejandro.guadarrama@nielsen.com>
+        (Google Transport Security);
+        Tue, 17 Jan 2023 08:06:14 -0800 (PST)
+Received-SPF: pass (google.com: domain of mxhubteam+bncbaabb5motopamgqeztl6kqy@nielsen.com designates 209.85.220.69 as permitted sender) client-ip=209.85.220.69;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@nielsen.com header.s=dkim-gsuite-connect header.b=OdtQWYHJ;
+       arc=pass (i=2 spf=pass spfdomain=nielsen.com dkim=pass dkdomain=nielsen.com dmarc=pass fromdomain=nielsen.com);
+       spf=pass (google.com: domain of mxhubteam+bncbaabb5motopamgqeztl6kqy@nielsen.com designates 209.85.220.69 as permitted sender) smtp.mailfrom=mxhubteam+bncBAABB5MOTOPAMGQEZTL6KQY@nielsen.com;
+       dmarc=pass (p=QUARANTINE sp=REJECT dis=NONE) header.from=nielsen.com
+ARC-Seal: i=2; a=rsa-sha256; t=1673971574; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=Qj8F+ocPEs9XGt/m2K6sammwptmWGYFb0WUhx+vra9p6+Jdc8ySPyMEEAZmI+MnbUI
+         A6uS3IZK9TtOPRTNG1sKfHrXSK4f802tHvcbOriDvV9xKWno4nQYldO64wwPSAgeB7Mi
+         GbyJ45DeVPd2dVwee/PKpyyAtZd55+iv4Dxwjd+Dyhkm4IQXEIe1ynZFDeJk+TSfU9r9
+         lkzj8drnUzspK1LRAE8aA5TXYwCWA4GfaojMIEHQOtHAmS6w+AySSkvsK9qv3bUNXoYm
+         bERR/GUMnIeCopciEbnhfNOZF+fJK33yoe9gBlQINJhDCCRYS7QYg+qJDdsWA/SFuvlL
+         UgTg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-archive:list-help:list-post:list-id:mailing-list:precedence
+         :message-id:content-transfer-encoding:subject:date:to:from
+         :mime-version:dkim-signature;
+        bh=4h+0jLuQI3QXHPRakjr8a4iqb8QmPnUNBdFBQO95M7M=;
+        b=D7aVksFy04EDDDN72s3dtITFiHdQyrrItxOWPOVABZcPmHvVM8hYBggjid5aPGtXLl
+         Apw0piNUa95jBKlFiSq6PZRLtMlBpSFprWZW1A+YHdOxSFXzCYVCr9PUxwhRawI2lAf+
+         75oZazz4ODwUvMYq7+jvDdqCa72eP3Xu29I29H0Z08W66Z/f6/+P7u6kRN7NCU2NBWf7
+         CkemEI7v51OFkxGH4w1SsRSW7tbY/I41+Mou9cjHPCeDuv5pmjXzs1EjF39ZeQtPDGBF
+         3yllL3CzegVRfPDNo0teVvwLNdPEu+yCz1Z4WaokPCT0o8U3GCanEtzc9eUMXcxusK2o
+         q81A==
+ARC-Authentication-Results: i=2; mx.google.com;
+       dkim=pass header.i=@nielsen.com header.s=gnmr header.b=gylrDMpl;
+       spf=pass (google.com: domain of xcheck_assago@nielsen.com designates 209.242.88.11 as permitted sender) smtp.mailfrom=XCheck_assago@nielsen.com;
+       dmarc=pass (p=QUARANTINE sp=REJECT dis=NONE) header.from=nielsen.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nielsen.com; s=dkim-gsuite-connect;
+        h=list-archive:list-help:list-post:list-id:mailing-list:precedence
+         :x-original-authentication-results:x-original-sender:message-id
+         :content-transfer-encoding:subject:date:to:from:mime-version:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=4h+0jLuQI3QXHPRakjr8a4iqb8QmPnUNBdFBQO95M7M=;
+        b=OdtQWYHJlaVppjYDXFoFUp/fJ0q76PUyCJ3aKR8QDrsiwzflzNs1ZBfFMEQXI1xaZN
+         KjUsk8w+2TC75WAHAjfgkaMwXvcyXxb0zKD+VbRmI514MoynTm/9uH7C8I1xZqmuW4F5
+         rNhmp7m8k3sFojhF1L8jY5byxl4ihw6Am1i5U=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=list-archive:list-help:list-post:x-spam-checked-in-group:list-id
+         :mailing-list:precedence:x-original-authentication-results
+         :x-original-sender:message-id:content-transfer-encoding:subject:date
+         :to:from:mime-version:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=4h+0jLuQI3QXHPRakjr8a4iqb8QmPnUNBdFBQO95M7M=;
+        b=zt+mFyHIkI0qcAMIMtCB2hz2AnoaPKtNK9qoVSvMx5olPeilGVJR/PVuOLWpl/aYDB
+         NM7NkVls6MZ8o300MJWfDNVUH0fD1+w3NSai0/T2+Qhp/Hcafpk+9+4xmsiZsl5MNA2a
+         g78aA3WQxxkFumgC7n2Ic1GRZgkVREI9x6VoJp0M+1mSG3U4OKFxW0KAyggpdJUT8Ebu
+         3CbKPmQzLbeb7U9bqhDExtXhg0YjjQ8sYTCzhd2h//aqkZ/Ay+maZ4FVZ2+JTJjlinZM
+         XnyWh8n3PdhWAcK4FMV/g4BXuznGO2npTi/50wMdaWdOwKFPKIWf6sUR5UMFLdhNdr0s
+         jChA==
+X-Gm-Message-State: AFqh2kpaLOGuiU2fHkr9ZQEnYuLG0qR+sVOEjf/PkmeQjSjCjv71wdRD
+	g+kglE51udpcBh0Mq8LcO1YWz2x6
+X-Google-Smtp-Source: AMrXdXsdiL0ip1VpQLnqbvshTJehPWV8CqheRmEb5iyWIi4pXS+XHfRBzzUhuZk7nzATdV7Vs0prQw==
+X-Received: by 2002:a1c:790a:0:b0:3db:22b:7752 with SMTP id l10-20020a1c790a000000b003db022b7752mr274793wme.114.1673971573828;
+        Tue, 17 Jan 2023 08:06:13 -0800 (PST)
+X-BeenThere: mxhubteam@nielsen.com
+Received: by 2002:a05:600c:6007:b0:3d1:be63:3b63 with SMTP id
+ az7-20020a05600c600700b003d1be633b63ls9522877wmb.1.-pod-canary-gmail; Tue, 17
+ Jan 2023 08:06:13 -0800 (PST)
+X-Received: by 2002:a05:600c:1c96:b0:3d9:e9a2:eea3 with SMTP id k22-20020a05600c1c9600b003d9e9a2eea3mr3461733wms.37.1673971572693;
+        Tue, 17 Jan 2023 08:06:12 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1673971572; cv=none;
+        d=google.com; s=arc-20160816;
+        b=y55C9Ikl5KDOK+fvEl4SBlBv3+uv1uIrq0fQb30K3yfTIuipvaytqN7UGlnbUyZiFv
+         m0ZaPIKrHFiHA6avp4REw/4ZVrqRd7QRjBUj6eljaYK2JNsJboL3Kpk7EWWe17b1xtcI
+         v1uUgbCTDX0NwBh+Nxsrw2dWb0SNtqsSexfuSlkabKO6regKwCCP8yc7XrIfjMLkGmIQ
+         3UcvHcTO0JBFUzdmH7gQ8iFcCJodn24MUkcVZnl90EhWCVSf75A/EKsZiZ/9I9eizG1z
+         X1R/3vFHwXJGo8rNibnYu6DA1J+SrIsKTUF8uWCoIq+DWedp4ppU9OCbpOvtHk6R6gBk
+         wxcg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=message-id:content-transfer-encoding:subject:date:to:from
+         :mime-version:dkim-signature;
+        bh=4h+0jLuQI3QXHPRakjr8a4iqb8QmPnUNBdFBQO95M7M=;
+        b=eM8mBBnnhhBehz7e77vYrUjsOkmFSvBQDK2fbDHDtHhRx/KjlRma0aRVvVt486xCLv
+         bLWtXECV79nLBrU66ILYPazQr4bhBBqLbVOBMpIYt02O5Oqpj8iGfTqom1/pbuxGYtaf
+         B0D6qc3SLou2eLZOCWTvF1YeyHdtc0J4a2ulsVfcpp74ZVBph9eNhEymrBtzwurUbUSU
+         3yZMNV3URccsLyKSD0NCn8fcsWEV42DaaIir7nFM++O8KNSb8z4Pnf7rt7GNQCcpKTsc
+         FxqOB80dOXsGbM8+G2iOkcgjiKEMMAGAaJVt917WjkQWd6CXltlLFhEdSq9XFnNyzP96
+         dECQ==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@nielsen.com header.s=gnmr header.b=gylrDMpl;
+       spf=pass (google.com: domain of xcheck_assago@nielsen.com designates 209.242.88.11 as permitted sender) smtp.mailfrom=XCheck_assago@nielsen.com;
+       dmarc=pass (p=QUARANTINE sp=REJECT dis=NONE) header.from=nielsen.com
+Received: from relay-day.nielsen.com (relay-day.nielsen.com. [209.242.88.11])
+        by mx.google.com with ESMTPS id az35-20020a05600c602300b003daf9c9ced8si6605946wmb.193.2023.01.17.08.06.11
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 17 Jan 2023 08:06:12 -0800 (PST)
+Received-SPF: pass (google.com: domain of xcheck_assago@nielsen.com designates 209.242.88.11 as permitted sender) client-ip=209.242.88.11;
+Received: from IP-0AFEE89E (unknown [10.254.227.21])
+	by daycossmtp001.nlsn.media (Postfix) with ESMTP id 4NxDJx21r0z4f3ng6;
+	Tue, 17 Jan 2023 11:06:09 -0500 (EST)
+MIME-Version: 1.0
+From: XCheck_assago@nielsen.com
+To: "Unitam Alerts" <Unitam.Alerts@nielsen.com>, "Raffaella"
+ <raffaella.verani@nielsen.com>, "Paola" <paola.canton@nielsen.com>,
+ "Simone" <simone.lazzari@nielsen.com>, "Team Mex" <mxhubteam@nielsen.com>,
+ "Itatamproduction" <itatamproduction@nielsen.com>, "Roberto Ali"
+ <roberto.ali@nielsen.com>
+Date: 17 Jan 2023 17:06:10 +0100
+Subject: RM - Surveillances (10-15 unitam) X-Check Report - 11:00:00 to
+ 15:59:59
+Content-Type: text/html; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <4NxDJx21r0z4f3ng6@daycossmtp001.nlsn.media>
+X-Virus-Scanned: clamav-milter 0.102.4 at daycossmtp001.nlsn.media
+X-Virus-Status: Clean
+X-Original-Sender: xcheck_assago@nielsen.com
+X-Original-Authentication-Results: mx.google.com;       dkim=pass
+ header.i=@nielsen.com header.s=gnmr header.b=gylrDMpl;       spf=pass
+ (google.com: domain of xcheck_assago@nielsen.com designates 209.242.88.11 as
+ permitted sender) smtp.mailfrom=XCheck_assago@nielsen.com;       dmarc=pass
+ (p=QUARANTINE sp=REJECT dis=NONE) header.from=nielsen.com
+Precedence: list
+Mailing-list: list mxhubteam@nielsen.com; contact mxhubteam+owners@nielsen.com
+List-ID: <mxhubteam.nielsen.com>
+X-Spam-Checked-In-Group: mxhubteam@nielsen.com
+X-Google-Group-Id: 53246345499
+List-Post: <https://groups.google.com/a/nielsen.com/group/mxhubteam/post>, <mailto:mxhubteam@nielsen.com>
+List-Help: <https://support.google.com/a/nielsen.com/bin/topic.py?topic=25838>,
+ <mailto:mxhubteam+help@nielsen.com>
+List-Archive: <https://groups.google.com/a/nielsen.com/group/mxhubteam/>
+
+<STYLE TYPE=3D"text/css">=0D=0A<!--=0D=0AHD2=0D=0A{=0D=0Afont-fam=
+ily:"Calibri";=0D=0A}=0D=0Abody, p.MsoNormal, li.MsoNormal, div.M=
+soNormal=0D=0A{=0D=0Afont-family:"Calibri";=0D=0A}=0D=0A-->=0D=0A=
+</STYLE>=0D=0A<HD2><table align =3D "center">=0D=0A<tr><td style=3D=
+"font-size:200%"><Center><B>SurveillanceMaster X-Check Report</B>=
+</Center></td></tr>=0D=0A<tr><td><Center>Process Time: 1/17/2023 =
+5:06:08 PM</Center></td></tr>=0D=0A</table>=0D=0A<br>=0D=0A<br>=0D=0A=
+<table border=3D"3" align=3D"center" style=3D"font-size:100%">=0D=0A=
+<tr bgcolor=3D"#FFFF99"><td colspan=3D2 align=3D"center"><B>Job P=
+arameters</B></td></tr>=0D=0A<tr>=0D=0A<td>SurveillanceMaster Ver=
+sion</td>=0D=0A<td>5.23.2206.8</td>=0D=0A</tr>=0D=0A<tr>=0D=0A<td=
+>Report Date</td>=0D=0A<td>1/17/2023</td>=0D=0A</tr>=0D=0A<tr>=0D=0A=
+<td>Time Window</td>=0D=0A<td>11:00:00 to 15:59:59</td>=0D=0A</tr=
+>=0D=0A<tr>=0D=0A<td>Include Local Reels</td>=0D=0A<td>True</td>=0D=0A=
+</tr>=0D=0A<tr>=0D=0A<td>Include Remote Reels (Tunerbox)</td>=0D=0A=
+<td>True</td>=0D=0A</tr>=0D=0A<tr>=0D=0A<td>Include Remote Reels =
+(PM Home)</td>=0D=0A<td>False</td>=0D=0A</tr>=0D=0A<tr>=0D=0A<td>=
+Include Suspended Reels</td>=0D=0A<td>False</td>=0D=0A</tr>=0D=0A=
+<tr>=0D=0A<td>Include Virtual Reels</td>=0D=0A<td>False</td>=0D=0A=
+</tr>=0D=0A</table>=0D=0A<br>=0D=0A<br>=0D=0A<table border=3D"3" =
+align=3D"center" style=3D"font-size:100%">=0D=0A<tr bgcolor=3D"#F=
+FFF99"><td colspan=3D3 align=3D"center"><B>Statistics</B></td></t=
+r>=0D=0A<tr bgcolor=3D"#FFFF99">=0D=0A<th>Reels Tested</th>=0D=0A=
+<th>External Exceptions</th>=0D=0A<th>Internal Exceptions</th>=0D=0A=
+</tr>=0D=0A<tr align=3D"center">=0D=0A<td>1392</td>=0D=0A<td>214<=
+/td>=0D=0A<td>277</td>=0D=0A</tr>=0D=0A</table>=0D=0A<br>=0D=0A<b=
+r>=0D=0A<hr width=3D100%" size=3D"4" color=3D"black" align=3D"cen=
+ter">=0D=0A<br>=0D=0A<br>=0D=0A<br>=0D=0A<table align =3D "center=
+">=0D=0A<tr><td style=3D"font-size:150%"><Center><B>Surveillance =
+Report - Combined External and Internal</B></td></tr>=0D=0A<tr><t=
+d><Center>Process Time: 1/17/2023 5:06:08 PM</td></tr>=0D=0A</tab=
+le>=0D=0A<br>=0D=0A<br>=0D=0A<table align =3D "center">=0D=0A<tr>=
+<td><Center>Note: Exceptions that are highlighted in <font color=3D=
+"firebrick">red</font> are critical exceptions.</td></tr>=0D=0A<t=
+r><td><Center>These are the exceptions that are most likely to in=
+dicate a serious problem and should be investigated thoroughly.</=
+td></tr>=0D=0A<tr><td><Center>Exceptions that are not highlighted=
+ as critical are less likely to indicate a serious problem but sh=
+ould still be investigated.</td></tr>=0D=0A</table>=0D=0A<br>=0D=0A=
+<table border=3D"3" align=3D"center" cellpadding=3D"3" cellspacin=
+g=3D"3">=0D=0A<col align=3D"left" width=3D"45%"></col>=0D=0A<col =
+align=3D"right" width=3D"5%"></col>=0D=0A<col align=3D"left" widt=
+h=3D"45%"></col>=0D=0A<col align=3D"right" width=3D"5%"></col>=0D=0A=
+<tr bgcolor=3D"#FFFF99">=0D=0A<th colspan=3D4 style=3D"font-size:=
+115%">Rules Failed</th>=0D=0A</tr>=0D=0A<tr style=3D"font-size:10=
+0%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>12TV PARMA DIG =
+ L;7064</b> - Local: 2 - Remote: 2 - Total: 4</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td><b>External</b></td>=0D=0A=
+<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A=
+<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-si=
+ze:100%">=0D=0A<td></td><td></td>=0D=0A<td>12TV PARMA DIG  L;7064=
+ (724) v 12TV PARMA DIG  L;7064 (725)<br>Probable cause is no aud=
+io from reel(s) 725 during the exception period</td>=0D=0A<td>0%<=
+/td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td>=
+<td></td>=0D=0A<td>12TV PARMA DIG  L;7064 (723) v 12TV PARMA DIG =
+ L;7064 (725)<br>Probable cause is no audio from reel(s) 725 duri=
+ng the exception period</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr=
+ style=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D=
+4><b>20 DIG/PSAT/TSAT  N;9028</b> - Local: 4 - Remote: 1 - Total:=
+ 5</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b=
+>External</b></td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b=
+>Internal</b></td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>20=
+ DIG/PSAT/TSAT  N;9028 (266) v 20 DIG/PSAT/TSAT  N;9028 (262)<br>=
+Probable cause is no audio from reel(s) 266 during the exception =
+period</td>=0D=0A<td>77%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-s=
+ize:100%">=0D=0A<td></td><td></td>=0D=0A<td>20 DIG/PSAT/TSAT  N;9=
+028 (266) v 20 DIG/PSAT/TSAT  N;9028 (All Other 4 Reels - 261,263=
+,267,268)<br>Probable cause is no audio from reel(s) 266 during t=
+he exception period</td>=0D=0A<td>75 - 77%</td>=0D=0A</tr>=0D=0A<=
+tr style=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspa=
+n=3D4><b>7 GOLD TELECITY PIEMONTE(TO) DIG L;6548</b> - Local: 2 -=
+ Remote: 2 - Total: 4</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size=
+:100%">=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp Match %</=
+b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match % Only</b=
+></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></t=
+d><td></td>=0D=0A<td>7 GOLD TELECITY PIEMONTE(TO) DIG L;6548 (212=
+3) v 7 GOLD TELECITY PIEMONTE(TO) DIG L;6548 (2125)<br>Probable c=
+ause is no audio from reel(s) 2125 during the exception period</t=
+d>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=
+=0D=0A<td></td><td></td>=0D=0A<td>7 GOLD TELECITY PIEMONTE(TO) DI=
+G L;6548 (2124) v 7 GOLD TELECITY PIEMONTE(TO) DIG L;6548 (2125)<=
+br>Probable cause is no audio from reel(s) 2125 during the except=
+ion period</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"fon=
+t-size:100%">=0D=0A<td></td><td></td>=0D=0A<td style=3D"color:fir=
+ebrick">7 GOLD TELECITY PIEMONTE(TO) DIG L;6548 (2124) v 7 GOLD T=
+ELECITY PIEMONTE(TO) DIG L;6548 (2127)</td>=0D=0A<td style=3D"col=
+or:firebrick">88%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100=
+%">=0D=0A<td></td><td></td>=0D=0A<td style=3D"color:firebrick">7 =
+GOLD TELECITY PIEMONTE(TO) DIG L;6548 (2123) v 7 GOLD TELECITY PI=
+EMONTE(TO) DIG L;6548 (2127)</td>=0D=0A<td style=3D"color:firebri=
+ck">89%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=
+=3D"DarkGray">=0D=0A<td colspan=3D4><b>7 GOLD TELEPADOVA DIG - Ve=
+neto DIG L;6634</b> - Local: 1 - Remote: 3 - Total: 4</td>=0D=0A<=
+/tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>External</b><=
+/td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b><=
+/td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td style=3D"color=
+:firebrick">7 GOLD TELEPADOVA DIG - Veneto DIG L;6634 (674) v 7 G=
+OLD TELEPADOVA DIG - Veneto DIG L;6634 (679)</td>=0D=0A<td style=3D=
+"color:firebrick">35%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size=
+:100%">=0D=0A<td></td><td></td>=0D=0A<td style=3D"color:firebrick=
+">7 GOLD TELEPADOVA DIG - Veneto DIG L;6634 (675) v 7 GOLD TELEPA=
+DOVA DIG - Veneto DIG L;6634 (679)</td>=0D=0A<td style=3D"color:f=
+irebrick">45%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td></td><td></td>=0D=0A<td style=3D"color:firebrick">7 GOLD TELE=
+PADOVA DIG - Veneto DIG L;6634 (672) v 7 GOLD TELEPADOVA DIG - Ve=
+neto DIG L;6634 (679)</td>=0D=0A<td style=3D"color:firebrick">46%=
+</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td=
+><td></td>=0D=0A<td>7 GOLD TELEPADOVA DIG - Veneto DIG L;6634 (67=
+5) v 7 GOLD TELEPADOVA DIG - Veneto DIG L;6634 (678)</td>=0D=0A<t=
+d>92%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td=
+></td><td></td>=0D=0A<td>7 GOLD TELEPADOVA DIG - Veneto DIG L;663=
+4 (672) v 7 GOLD TELEPADOVA DIG - Veneto DIG L;6634 (678)</td>=0D=0A=
+<td>92%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<=
+td></td><td></td>=0D=0A<td>7 GOLD TELEPADOVA DIG - Veneto DIG L;6=
+634 (674) v 7 GOLD TELEPADOVA DIG - Veneto DIG L;6634 (678)</td>=0D=0A=
+<td>92%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=
+=3D"DarkGray">=0D=0A<td colspan=3D4><b>7 GOLD TVR TELEITALIA DIG =
+L;6741</b> - Local: 3 - Remote: 1 - Total: 4</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td><b>External</b></td>=0D=0A=
+<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A=
+<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-si=
+ze:100%">=0D=0A<td></td><td></td>=0D=0A<td>7 GOLD TVR TELEITALIA =
+DIG L;6741 (1514) v 7 GOLD TVR TELEITALIA DIG L;6741 (1516)<br>Pr=
+obable cause is no audio from reel(s) 1516 during the exception p=
+eriod</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-siz=
+e:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>All Single =
+Channels</b> - Local: 0 - Remote: 0 - Total: 0</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td><b>External</b></td>=0D=0A=
+<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A=
+<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-si=
+ze:100%">=0D=0A<td></td><td></td>=0D=0A<td style=3D"color:firebri=
+ck">RETE 8 SPORT DIG  L;8564 (404) v RETE 8 SPORT DIG  L;8564 (40=
+1)</td>=0D=0A<td style=3D"color:firebrick">0%</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td st=
+yle=3D"color:firebrick">RETE 8 SPORT DIG  L;8564 (404) v RETE 8 S=
+PORT DIG  L;8564 (402)</td>=0D=0A<td style=3D"color:firebrick">0%=
+</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td=
+><td></td>=0D=0A<td style=3D"color:firebrick">RETE 8 SPORT DIG  L=
+;8564 (404) v RETE 8 SPORT DIG  L;8564 (403)</td>=0D=0A<td style=3D=
+"color:firebrick">0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:=
+100%">=0D=0A<td></td><td></td>=0D=0A<td style=3D"color:firebrick"=
+>RETE 8 SPORT DIG  L;8564 (404) v RETE 8 SPORT DIG  L;8564 (405)<=
+/td>=0D=0A<td style=3D"color:firebrick">0%</td>=0D=0A</tr>=0D=0A<=
+tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td sty=
+le=3D"color:firebrick">NSL DIG L;9033 (1241) v NSL DIG L;9033 (12=
+42)</td>=0D=0A<td style=3D"color:firebrick">0%</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td st=
+yle=3D"color:firebrick">NSL DIG L;9033 (1241) v NSL DIG L;9033 (1=
+245)</td>=0D=0A<td style=3D"color:firebrick">0%</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>NS=
+L DIG L;9033 (1241) v NSL DIG L;9033 (1246)<br>Probable cause is =
+no audio from reel(s) 1246 during the exception period</td>=0D=0A=
+<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<t=
+d></td><td></td>=0D=0A<td style=3D"color:firebrick">NSL DIG L;903=
+3 (1241) v NSL DIG L;9033 (1247)</td>=0D=0A<td style=3D"color:fir=
+ebrick">0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td></td><td></td>=0D=0A<td style=3D"color:firebrick">VIDEOSTAR D=
+IG L;6617 (2594) v VIDEOSTAR DIG L;6617 (2593)</td>=0D=0A<td styl=
+e=3D"color:firebrick">0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-s=
+ize:100%">=0D=0A<td></td><td></td>=0D=0A<td style=3D"color:firebr=
+ick">VIDEOSTAR DIG L;6617 (2594) v VIDEOSTAR DIG L;6617 (2597)</t=
+d>=0D=0A<td style=3D"color:firebrick">0%</td>=0D=0A</tr>=0D=0A<tr=
+ style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>E' TV=
+ LIGURIA DIG L;9049 (1612) v E' TV LIGURIA DIG L;9049 (1616)<br>P=
+robable cause is no audio from reel(s) 1616 during the exception =
+period</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-si=
+ze:100%">=0D=0A<td></td><td></td>=0D=0A<td>TV LUNA NAPOLI DIG L;7=
+427 (2523) v TV LUNA NAPOLI DIG L;7427 (2527)<br>Probable cause i=
+s no audio from reel(s) 2523 during the exception period</td>=0D=0A=
+<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<t=
+d></td><td></td>=0D=0A<td>TV LUNA NAPOLI DIG L;7427 (2523) v TV L=
+UNA NAPOLI DIG L;7427 (2528)<br>Probable cause is no audio from r=
+eel(s) 2523 during the exception period</td>=0D=0A<td>0%</td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td>STUDIO 100 TV DIG  L;6584 (1732) v STUDIO 100 TV DIG  L;6584 =
+(1733)<br>Probable cause is no audio from reel(s) 1732 during the=
+ exception period</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=
+=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>STUDIO 100 =
+TV DIG  L;6584 (1732) v STUDIO 100 TV DIG  L;6584 (1734)<br>Proba=
+ble cause is no audio from reel(s) 1732 during the exception peri=
+od</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:1=
+00%">=0D=0A<td></td><td></td>=0D=0A<td style=3D"color:firebrick">=
+VIDEOSTAR DIG L;6617 (2594) v VIDEOSTAR DIG L;6617 (2591)</td>=0D=0A=
+<td style=3D"color:firebrick">0%</td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td style=3D"color=
+:firebrick">VIDEOSTAR DIG L;6617 (2594) v VIDEOSTAR DIG L;6617 (2=
+592)</td>=0D=0A<td style=3D"color:firebrick">0%</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td st=
+yle=3D"color:firebrick">E' TV LIGURIA DIG L;9049 (1612) v E' TV L=
+IGURIA DIG L;9049 (1611)</td>=0D=0A<td style=3D"color:firebrick">=
+0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></=
+td><td></td>=0D=0A<td>E' TV LIGURIA DIG L;9049 (1612) v E' TV LIG=
+URIA DIG L;9049 (1613)<br>Probable cause is no audio from reel(s)=
+ 1613 during the exception period</td>=0D=0A<td>0%</td>=0D=0A</tr=
+>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td style=3D"color:firebrick">LOMBARDIA TV DIG L;7062 (3114) v LO=
+MBARDIA TV DIG L;7062 (3111)</td>=0D=0A<td style=3D"color:firebri=
+ck">0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<t=
+d></td><td></td>=0D=0A<td style=3D"color:firebrick">CAFE' 24 DIG =
+L;8066 (2314) v CAFE' 24 DIG L;8066 (2315)</td>=0D=0A<td style=3D=
+"color:firebrick">0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:=
+100%">=0D=0A<td></td><td></td>=0D=0A<td style=3D"color:firebrick"=
+>LOMBARDIA TV DIG L;7062 (3114) v LOMBARDIA TV DIG L;7062 (3117)<=
+/td>=0D=0A<td style=3D"color:firebrick">0%</td>=0D=0A</tr>=0D=0A<=
+tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td sty=
+le=3D"color:firebrick">LOMBARDIA TV DIG L;7062 (3114) v LOMBARDIA=
+ TV DIG L;7062 (3118)</td>=0D=0A<td style=3D"color:firebrick">0%<=
+/td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td>=
+<td></td>=0D=0A<td>RADIO LINEA N1 TV DIG R L;9481 (2614) v RADIO =
+LINEA N1 TV DIG R L;9481 (2610)<br>Probable cause is no audio fro=
+m reel(s) 2614 during the exception period</td>=0D=0A<td>0%</td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td>RADIO LINEA N1 TV DIG R L;9481 (2614) v RADIO LINEA N1 TV DIG=
+ R L;9481 (2613)<br>Probable cause is no audio from reel(s) 2614 =
+during the exception period</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td st=
+yle=3D"color:firebrick">TELENOVA SICILIA DIG L;7081 (2434) v TELE=
+NOVA SICILIA DIG L;7081 (2430)</td>=0D=0A<td style=3D"color:fireb=
+rick">0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td></td><td></td>=0D=0A<td style=3D"color:firebrick">TELENOVA SI=
+CILIA DIG L;7081 (2434) v TELENOVA SICILIA DIG L;7081 (2431)</td>=
+=0D=0A<td style=3D"color:firebrick">0%</td>=0D=0A</tr>=0D=0A<tr s=
+tyle=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td style=3D=
+"color:firebrick">CAFE' 24 DIG L;8066 (2314) v CAFE' 24 DIG L;806=
+6 (2312)</td>=0D=0A<td style=3D"color:firebrick">0%</td>=0D=0A</t=
+r>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td style=3D"color:firebrick">RTC-TELECALABRIA DIG L;9438 (3944) =
+v RTC-TELECALABRIA DIG L;9438 (3943)</td>=0D=0A<td style=3D"color=
+:firebrick">0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=
+=0D=0A<td></td><td></td>=0D=0A<td style=3D"color:firebrick">LOMBA=
+RDIA TV DIG L;7062 (3114) v LOMBARDIA TV DIG L;7062 (3112)</td>=0D=0A=
+<td style=3D"color:firebrick">0%</td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td style=3D"color=
+:firebrick">CAFE' 24 DIG L;8066 (2314) v CAFE' 24 DIG L;8066 (231=
+6)</td>=0D=0A<td style=3D"color:firebrick">0%</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td st=
+yle=3D"color:firebrick">CAFE' 24 DIG L;8066 (2314) v CAFE' 24 DIG=
+ L;8066 (2317)</td>=0D=0A<td style=3D"color:firebrick">0%</td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td style=3D"color:firebrick">CITTACELESTE TV DIG L;9684 (3214) v=
+ CITTACELESTE TV DIG L;9684 (3211)</td>=0D=0A<td style=3D"color:f=
+irebrick">0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td></td><td></td>=0D=0A<td style=3D"color:firebrick">CITTACELEST=
+E TV DIG L;9684 (3214) v CITTACELESTE TV DIG L;9684 (3212)</td>=0D=0A=
+<td style=3D"color:firebrick">0%</td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td style=3D"color=
+:firebrick">CITTACELESTE TV DIG L;9684 (3214) v CITTACELESTE TV D=
+IG L;9684 (3215)</td>=0D=0A<td style=3D"color:firebrick">0%</td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td style=3D"color:firebrick">CITTACELESTE TV DIG L;9684 (3214) v=
+ CITTACELESTE TV DIG L;9684 (3216)</td>=0D=0A<td style=3D"color:f=
+irebrick">0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td></td><td></td>=0D=0A<td style=3D"color:firebrick">RTC-TELECAL=
+ABRIA DIG L;9438 (3944) v RTC-TELECALABRIA DIG L;9438 (3941)</td>=
+=0D=0A<td style=3D"color:firebrick">0%</td>=0D=0A</tr>=0D=0A<tr s=
+tyle=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td style=3D=
+"color:firebrick">CAFE' 24 DIG L;8066 (2314) v CAFE' 24 DIG L;806=
+6 (2313)</td>=0D=0A<td style=3D"color:firebrick">0%</td>=0D=0A</t=
+r>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td style=3D"color:firebrick">RTC-TELECALABRIA DIG L;9438 (3944) =
+v RTC-TELECALABRIA DIG L;9438 (3945)</td>=0D=0A<td style=3D"color=
+:firebrick">0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" =
+bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>ALTO ADIGE TV (ex T=
+CA Alto Adige) DIG  L;7349</b> - Local: 2 - Remote: 1 - Total: 3<=
+/td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>Ex=
+ternal</b></td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>In=
+ternal</b></td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>AL=
+TO ADIGE TV (ex TCA Alto Adige) DIG  L;7349 (2784) v ALTO ADIGE T=
+V (ex TCA Alto Adige) DIG  L;7349 (2785)<br>Probable cause is no =
+audio from reel(s) 2785 during the exception period</td>=0D=0A<td=
+>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D"=
+DarkGray">=0D=0A<td colspan=3D4><b>ANTENNA SICILIA DIG L;6704</b>=
+ - Local: 2 - Remote: 2 - Total: 4</td>=0D=0A</tr>=0D=0A<tr style=
+=3D"font-size:100%">=0D=0A<td><b>External</b></td>=0D=0A<td><b>Un=
+exp Match %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Ma=
+tch % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=
+=0D=0A<td style=3D"color:firebrick">ANTENNA SICILIA DIG L;6704 (1=
+341) v TELECOLOR  DIG  L;6696 (1961)</td>=0D=0A<td style=3D"color=
+:firebrick">35%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr =
+style=3D"font-size:100%">=0D=0A<td>ANTENNA SICILIA DIG L;6704 (Al=
+l 4 Reels - 1341,1344,1345,1347) v TELECOLOR  DIG  L;6696 (All 4 =
+Reels - 1962,1964,1965,1967)</td>=0D=0A<td>35%</td>=0D=0A<td></td=
+><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td=
+ style=3D"color:firebrick">ANTENNA SICILIA DIG L;6704 (1344) v TE=
+LECOLOR  DIG  L;6696 (1961)</td>=0D=0A<td style=3D"color:firebric=
+k">34%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"=
+font-size:100%">=0D=0A<td>ANTENNA SICILIA DIG L;6704 (All 4 Reels=
+ - 1341,1344,1345,1347) v TELEPACE DIG L;7881 (All 4 Reels - 9002=
+,9003,9004,9007)</td>=0D=0A<td>31 - 33%</td>=0D=0A<td></td><td></=
+td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td>ANTENN=
+A SICILIA DIG L;6704 (All 4 Reels - 1341,1344,1345,1347) v TELERA=
+DIOPACE 1 SAT CI L;8286 (Both Reels - 4321,4323)</td>=0D=0A<td>33=
+%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-=
+size:100%">=0D=0A<td style=3D"color:firebrick">TELERADIOPACE 1 DI=
+G L;8286 (1931) v ANTENNA SICILIA DIG L;6704 (All 4 Reels - 1341,=
+1344,1345,1347)</td>=0D=0A<td style=3D"color:firebrick">33%</td>=0D=0A=
+<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td>ANTENNA SICILIA DIG L;6704 (All 4 Reels - 1341,1344,1345,1347=
+) v TGS TELEGIORNALE DI SICILIA DIG  L;6614 (All 4 Reels - 2003,2=
+004,2005,2007)</td>=0D=0A<td>31 - 33%</td>=0D=0A<td></td><td></td=
+>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td>ANTENNA =
+SICILIA DIG L;6704 (All 4 Reels - 1341,1344,1345,1347) v TRM T.R.=
+MEDITERRANEA DIG  L;6684 (All 3 Reels - 2341,2345,2347)</td>=0D=0A=
+<td>32%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td style=3D"color:firebrick">ANTENNA SICI=
+LIA DIG L;6704 (1344) v TELEPACE DIG L;7881 (9006)</td>=0D=0A<td =
+style=3D"color:firebrick">32%</td>=0D=0A<td></td><td></td>=0D=0A<=
+/tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td style=3D"color:f=
+irebrick">ANTENNA SICILIA DIG L;6704 (1344) v TRM T.R.MEDITERRANE=
+A DIG  L;6684 (2342)</td>=0D=0A<td style=3D"color:firebrick">32%<=
+/td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-si=
+ze:100%">=0D=0A<td>ANTENNA SICILIA DIG L;6704 (All 4 Reels - 1341=
+,1344,1345,1347) v SESTARETE (Sicilia) DIG L;7690 (All 4 Reels - =
+3333,3334,3335,3337)</td>=0D=0A<td>32%</td>=0D=0A<td></td><td></t=
+d>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td style=3D=
+"color:firebrick">ANTENNA SICILIA DIG L;6704 (1344) v TGS TELEGIO=
+RNALE DI SICILIA DIG  L;6614 (2002)</td>=0D=0A<td style=3D"color:=
+firebrick">32%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr s=
+tyle=3D"font-size:100%">=0D=0A<td style=3D"color:firebrick">ANTEN=
+NA SICILIA DIG L;6704 (1341) v TRM T.R.MEDITERRANEA DIG  L;6684 (=
+2342)</td>=0D=0A<td style=3D"color:firebrick">32%</td>=0D=0A<td><=
+/td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td style=3D"color:firebrick">ANTENNA SICILIA DIG L;6704 (1341) v=
+ TGS TELEGIORNALE DI SICILIA DIG  L;6614 (2002)</td>=0D=0A<td sty=
+le=3D"color:firebrick">32%</td>=0D=0A<td></td><td></td>=0D=0A</tr=
+>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td style=3D"color:fire=
+brick">ANTENNA SICILIA DIG L;6704 (1341) v TELEPACE DIG L;7881 (9=
+006)</td>=0D=0A<td style=3D"color:firebrick">32%</td>=0D=0A<td></=
+td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<=
+td>ANTENNA SICILIA DIG L;6704 (All 4 Reels - 1341,1344,1345,1347)=
+ v TELE ONE DIG  L;8344 (All 4 Reels - 3321,3324,3325,3327)</td>=0D=0A=
+<td>28 - 31%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr sty=
+le=3D"font-size:100%">=0D=0A<td style=3D"color:firebrick">TELERAD=
+IOPACE 1 DIG L;8286 (1934) v ANTENNA SICILIA DIG L;6704 (All 4 Re=
+els - 1341,1344,1345,1347)</td>=0D=0A<td style=3D"color:firebrick=
+">31%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"f=
+ont-size:100%">=0D=0A<td style=3D"color:firebrick">ANTENNA SICILI=
+A DIG L;6704 (1341) v TESTSOSP_BRESCIA TELENORD;9913 (9224)</td>=0D=0A=
+<td style=3D"color:firebrick">31%</td>=0D=0A<td></td><td></td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td style=3D"color:=
+firebrick">ANTENNA SICILIA DIG L;6704 (1341) v TELE ONE DIG  L;83=
+44 (3323)</td>=0D=0A<td style=3D"color:firebrick">30%</td>=0D=0A<=
+td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td style=3D"color:firebrick">ANTENNA SICILIA DIG L;6704 (1344) v=
+ TESTSOSP_BRESCIA TELENORD;9913 (9224)</td>=0D=0A<td style=3D"col=
+or:firebrick">30%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<t=
+r style=3D"font-size:100%">=0D=0A<td style=3D"color:firebrick">AN=
+TENNA SICILIA DIG L;6704 (1344) v TELE ONE DIG  L;8344 (3323)</td=
+>=0D=0A<td style=3D"color:firebrick">30%</td>=0D=0A<td></td><td><=
+/td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td style=
+=3D"color:firebrick">ANTENNA SICILIA DIG L;6704 (1341) v VR VIDEO=
+REGIONE (SICILIA) DIG  L;6747 (2472)</td>=0D=0A<td style=3D"color=
+:firebrick">24%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr =
+style=3D"font-size:100%">=0D=0A<td>ANTENNA SICILIA DIG L;6704 (Al=
+l 4 Reels - 1341,1344,1345,1347) v VR VIDEOREGIONE (SICILIA) DIG =
+ L;6747 (All 4 Reels - 2473,2474,2475,2477)</td>=0D=0A<td>24%</td=
+>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:=
+100%">=0D=0A<td style=3D"color:firebrick">ANTENNA SICILIA DIG L;6=
+704 (1344) v VR VIDEOREGIONE (SICILIA) DIG  L;6747 (2472)</td>=0D=0A=
+<td style=3D"color:firebrick">23%</td>=0D=0A<td></td><td></td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A=
+<td colspan=3D4><b>BABAYAGA TV DIG R L;9047</b> - Local: 3 - Remo=
+te: 1 - Total: 4</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%=
+">=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp Match %</b></t=
+d>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match % Only</b></td=
+>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td=
+></td>=0D=0A<td style=3D"color:firebrick">BABAYAGA TV DIG R L;904=
+7 (3194) v BABAYAGA TV DIG R L;9047 (All Other 3 Reels - 3192,319=
+3,3196)</td>=0D=0A<td style=3D"color:firebrick">86%</td>=0D=0A</t=
+r>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<=
+td colspan=3D4><b>CALABRIA TV DIG L;7114</b> - Local: 2 - Remote:=
+ 2 - Total: 4</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td><b>External</b></td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A=
+<td><b>Internal</b></td>=0D=0A<td><b>Match % Only</b></td>=0D=0A<=
+/tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td style=3D"color:firebrick">CALABRIA TV DIG L;7114 (1722) v CAL=
+ABRIA TV DIG L;7114 (1723)</td>=0D=0A<td style=3D"color:firebrick=
+">28%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td=
+></td><td></td>=0D=0A<td style=3D"color:firebrick">CALABRIA TV DI=
+G L;7114 (1724) v CALABRIA TV DIG L;7114 (1723)</td>=0D=0A<td sty=
+le=3D"color:firebrick">28%</td>=0D=0A</tr>=0D=0A<tr style=3D"font=
+-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>CANALE =
+10 (LAZIO)  DIG L;7290</b> - Local: 2 - Remote: 1 - Total: 3</td>=
+=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>Extern=
+al</b></td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>Intern=
+al</b></td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr=
+ style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>CANAL=
+E 10 (LAZIO)  DIG L;7290 (1501) v CANALE 10 (LAZIO)  DIG L;7290 (=
+1504)<br>Probable cause is no audio from reel(s) 1504 during the =
+exception period</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>CA=
+NALE 21 EXTRA  DIG L;9190</b> - Local: 2 - Remote: 2 - Total: 4</=
+td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>Ext=
+ernal</b></td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>Int=
+ernal</b></td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>CA=
+NALE 21 EXTRA  DIG L;9190 (4213) v CANALE 21 EXTRA  DIG L;9190 (4=
+212)<br>Probable cause is no audio from reel(s) 4212 during the e=
+xception period</td>=0D=0A<td>89%</td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>CA=
+NALE 5 DIG/DOUBLE</b> - Local: 7 - Remote: 0 - Total: 7</td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>External</b>=
+</td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b>=
+</td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=
+=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>CANALE 5 DI=
+G/PSAT/TSAT  N;0004 (All 5 Reels - 40,42,43,47,48) v CANALE 5 DOU=
+BLE DIG/TSAT  N;9096 (Both Reels - 4251,4252)</td>=0D=0A<td>87 - =
+91%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D"=
+DarkGray">=0D=0A<td colspan=3D4><b>CANALE 7  DIG L;7247</b> - Loc=
+al: 2 - Remote: 2 - Total: 4</td>=0D=0A</tr>=0D=0A<tr style=3D"fo=
+nt-size:100%">=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp Ma=
+tch %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match % =
+Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td></td><td></td>=0D=0A<td style=3D"color:firebrick">CANALE 7  D=
+IG L;7247 (3424) v CANALE 7  DIG L;7247 (3423)</td>=0D=0A<td styl=
+e=3D"color:firebrick">81%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-=
+size:100%">=0D=0A<td></td><td></td>=0D=0A<td>CANALE 7  DIG L;7247=
+ (3424) v CANALE 7  DIG L;7247 (3426)</td>=0D=0A<td>91%</td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td>CANALE 7  DIG L;7247 (3424) v CANALE 7  DIG L;7247 (All Other=
+ 3 Reels - 3421,3422,3425)</td>=0D=0A<td>87 - 93%</td>=0D=0A</tr>=
+=0D=0A<tr style=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td=
+ colspan=3D4><b>CANALE 8 NAPOLI DIG L;6540</b> - Local: 2 - Remot=
+e: 2 - Total: 4</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%"=
+>=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp Match %</b></td=
+>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match % Only</b></td>=
+=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td>=
+</td>=0D=0A<td>CANALE 8 NAPOLI DIG L;6540 (1234) v CANALE 8 NAPOL=
+I DIG L;6540 (1236)<br>Probable cause is no audio from reel(s) 12=
+36 during the exception period</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>CA=
+NALE 8 NAPOLI DIG L;6540 (1235) v CANALE 8 NAPOLI DIG L;6540 (123=
+6)<br>Probable cause is no audio from reel(s) 1236 during the exc=
+eption period</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"=
+font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>CANALE 8 NAPOLI=
+ DIG L;6540 (1235) v CANALE 8 NAPOLI DIG L;6540 (1237)</td>=0D=0A=
+<td>92%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<=
+td></td><td></td>=0D=0A<td>CANALE 8 NAPOLI DIG L;6540 (1232) v CA=
+NALE 8 NAPOLI DIG L;6540 (1235)</td>=0D=0A<td>93%</td>=0D=0A</tr>=
+=0D=0A<tr style=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td=
+ colspan=3D4><b>CANALE 9 - 7 GOLD DIG L;6652</b> - Local: 2 - Rem=
+ote: 2 - Total: 4</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100=
+%">=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp Match %</b></=
+td>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match % Only</b></t=
+d>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><t=
+d></td>=0D=0A<td>CANALE 9 - 7 GOLD DIG L;6652 (1406) v CANALE 9 -=
+ 7 GOLD DIG L;6652 (1407)</td>=0D=0A<td>92%</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>CA=
+NALE 9 - 7 GOLD DIG L;6652 (1402) v CANALE 9 - 7 GOLD DIG L;6652 =
+(1406)</td>=0D=0A<td>93%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-s=
+ize:100%">=0D=0A<td></td><td></td>=0D=0A<td>CANALE 9 - 7 GOLD DIG=
+ L;6652 (1406) v CANALE 9 - 7 GOLD DIG L;6652 (1405)</td>=0D=0A<t=
+d>94%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D=
+"DarkGray">=0D=0A<td colspan=3D4><b>Canale Italia Dig/Canale Ital=
+ia 83 Sat</b> - Local: 1 - Remote: 3 - Total: 4</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td><b>External</b></td>=0D=0A=
+<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A=
+<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-si=
+ze:100%">=0D=0A<td></td><td></td>=0D=0A<td style=3D"color:firebri=
+ck">CANALE ITALIA (ex C.Ita 83) DIG L;9654 (733) v CANALE ITALIA =
+(ex C.Ita 83) DIG L;9654 (738)</td>=0D=0A<td style=3D"color:fireb=
+rick">76%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td></td><td></td>=0D=0A<td style=3D"color:firebrick">CANALE ITAL=
+IA (ex C.Ita 83) DIG L;9654 (733) v CANALE ITALIA (ex C.Ita 83) D=
+IG L;9654 (739)</td>=0D=0A<td style=3D"color:firebrick">76%</td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td style=3D"color:firebrick">CANALE ITALIA (ex C.Ita 83) DIG L;9=
+654 (734) v CANALE ITALIA (ex C.Ita 83) DIG L;9654 (735)</td>=0D=0A=
+<td style=3D"color:firebrick">76%</td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td style=3D"color=
+:firebrick">CANALE ITALIA (ex C.Ita 83) DIG L;9654 (734) v CANALE=
+ ITALIA (ex C.Ita 83) DIG L;9654 (737)</td>=0D=0A<td style=3D"col=
+or:firebrick">76%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100=
+%">=0D=0A<td></td><td></td>=0D=0A<td style=3D"color:firebrick">CA=
+NALE ITALIA (ex C.Ita 83) DIG L;9654 (734) v CANALE ITALIA (ex C.=
+Ita 83) DIG L;9654 (738)</td>=0D=0A<td style=3D"color:firebrick">=
+76%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><=
+/td><td></td>=0D=0A<td style=3D"color:firebrick">CANALE ITALIA (e=
+x C.Ita 83) DIG L;9654 (732) v CANALE ITALIA (ex C.Ita 83) DIG L;=
+9654 (738)</td>=0D=0A<td style=3D"color:firebrick">76%</td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td style=3D"color:firebrick">CANALE ITALIA (ex C.Ita 83) DIG L;9=
+654 (733) v CANALE ITALIA (ex C.Ita 83) DIG L;9654 (730)</td>=0D=0A=
+<td style=3D"color:firebrick">77%</td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td style=3D"color=
+:firebrick">CANALE ITALIA (ex C.Ita 83) DIG L;9654 (733) v CANALE=
+ ITALIA (ex C.Ita 83) DIG L;9654 (735)</td>=0D=0A<td style=3D"col=
+or:firebrick">77%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100=
+%">=0D=0A<td></td><td></td>=0D=0A<td style=3D"color:firebrick">CA=
+NALE ITALIA (ex C.Ita 83) DIG L;9654 (733) v CANALE ITALIA (ex C.=
+Ita 83) DIG L;9654 (737)</td>=0D=0A<td style=3D"color:firebrick">=
+77%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><=
+/td><td></td>=0D=0A<td style=3D"color:firebrick">CANALE ITALIA (e=
+x C.Ita 83) DIG L;9654 (734) v CANALE ITALIA (ex C.Ita 83) DIG L;=
+9654 (730)</td>=0D=0A<td style=3D"color:firebrick">77%</td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td style=3D"color:firebrick">CANALE ITALIA (ex C.Ita 83) DIG L;9=
+654 (734) v CANALE ITALIA (ex C.Ita 83) DIG L;9654 (739)</td>=0D=0A=
+<td style=3D"color:firebrick">77%</td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td style=3D"color=
+:firebrick">CANALE ITALIA (ex C.Ita 83) DIG L;9654 (732) v CANALE=
+ ITALIA (ex C.Ita 83) DIG L;9654 (730)</td>=0D=0A<td style=3D"col=
+or:firebrick">77%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100=
+%">=0D=0A<td></td><td></td>=0D=0A<td style=3D"color:firebrick">CA=
+NALE ITALIA (ex C.Ita 83) DIG L;9654 (732) v CANALE ITALIA (ex C.=
+Ita 83) DIG L;9654 (735)</td>=0D=0A<td style=3D"color:firebrick">=
+77%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><=
+/td><td></td>=0D=0A<td style=3D"color:firebrick">CANALE ITALIA (e=
+x C.Ita 83) DIG L;9654 (732) v CANALE ITALIA (ex C.Ita 83) DIG L;=
+9654 (737)</td>=0D=0A<td style=3D"color:firebrick">77%</td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td style=3D"color:firebrick">CANALE ITALIA (ex C.Ita 83) DIG L;9=
+654 (732) v CANALE ITALIA (ex C.Ita 83) DIG L;9654 (739)</td>=0D=0A=
+<td style=3D"color:firebrick">77%</td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>DE=
+LTA TV DIG L;8170</b> - Local: 2 - Remote: 2 - Total: 4</td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>External</b>=
+</td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b>=
+</td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=
+=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>DELTA TV DI=
+G L;8170 (3012) v DELTA TV DIG L;8170 (3013)</td>=0D=0A<td>94%</t=
+d>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><t=
+d></td>=0D=0A<td>DELTA TV DIG L;8170 (3012) v DELTA TV DIG L;8170=
+ (3014)</td>=0D=0A<td>94%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-=
+size:100%">=0D=0A<td></td><td></td>=0D=0A<td>DELTA TV DIG L;8170 =
+(3012) v DELTA TV DIG L;8170 (3018)</td>=0D=0A<td>94%</td>=0D=0A<=
+/tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A=
+<td colspan=3D4><b>E' TV UMBRIA DIG L;9036</b> - Local: 1 - Remot=
+e: 1 - Total: 2</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%"=
+>=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp Match %</b></td=
+>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match % Only</b></td>=
+=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td>=
+</td>=0D=0A<td>E' TV UMBRIA DIG L;9036 (2581) v E' TV UMBRIA DIG =
+L;9036 (2584)<br>Probable cause is no audio from reel(s) 2584 dur=
+ing the exception period</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<t=
+r style=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=
+=3D4><b>EUROSPORT 1 SD/HD PSAT  S;6083</b> - Local: 3 - Remote: 0=
+ - Total: 3</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td><b>External</b></td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A=
+<td><b>Internal</b></td>=0D=0A<td><b>Match % Only</b></td>=0D=0A<=
+/tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td style=3D"color:firebrick">EUROSPORT 1 SD/HD PSAT  S;6083 (596=
+2) v EUROSPORT 1 SD/HD PSAT  S;6083 (Both Other Reels - 5961,5963=
+)</td>=0D=0A<td style=3D"color:firebrick">69%</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>EU=
+ROSPORT 1 SD/HD PSAT  S;6083 (5963) v EUROSPORT 1 SD/HD PSAT  S;6=
+083 (5961)</td>=0D=0A<td>91%</td>=0D=0A</tr>=0D=0A<tr style=3D"fo=
+nt-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>IRIS =
+DIG/DOUBLE</b> - Local: 5 - Remote: 1 - Total: 6</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td><b>External</b></td>=0D=0A=
+<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A=
+<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-si=
+ze:100%">=0D=0A<td></td><td></td>=0D=0A<td style=3D"color:firebri=
+ck">IRIS DIG/PSAT/TSAT  N;6734 (3496) v IRIS (DOUBLE I) DIG/TSAT =
+ N;9099 (Both Reels - 4070,4072)</td>=0D=0A<td style=3D"color:fir=
+ebrick">47%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td></td><td></td>=0D=0A<td style=3D"color:firebrick">IRIS DIG/PS=
+AT/TSAT  N;6734 (3498) v IRIS (DOUBLE I) DIG/TSAT  N;9099 (Both R=
+eels - 4070,4072)</td>=0D=0A<td style=3D"color:firebrick">60%</td=
+>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td=
+></td>=0D=0A<td style=3D"color:firebrick">IRIS DIG/PSAT/TSAT  N;6=
+734 (3493) v IRIS (DOUBLE I) DIG/TSAT  N;9099 (Both Reels - 4070,=
+4072)</td>=0D=0A<td style=3D"color:firebrick">61%</td>=0D=0A</tr>=
+=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td style=3D"color:firebrick">IRIS DIG/PSAT/TSAT  N;6734 (3492) v=
+ IRIS (DOUBLE I) DIG/TSAT  N;9099 (Both Reels - 4070,4072)</td>=0D=0A=
+<td style=3D"color:firebrick">61%</td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>IR=
+PINIA TV DIG L;6892</b> - Local: 3 - Remote: 1 - Total: 4</td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>External</b>=
+</td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b>=
+</td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=
+=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>IRPINIA TV =
+DIG L;6892 (2542) v IRPINIA TV DIG L;6892 (2548)</td>=0D=0A<td>91=
+%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></t=
+d><td></td>=0D=0A<td>IRPINIA TV DIG L;6892 (2544) v IRPINIA TV DI=
+G L;6892 (2545)</td>=0D=0A<td>94%</td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>LA=
+Q TV DIG L;8998</b> - Local: 1 - Remote: 3 - Total: 4</td>=0D=0A<=
+/tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>External</b><=
+/td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b><=
+/td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>LAQ TV DIG L;8=
+998 (2851) v LAQ TV DIG L;8998 (2855)<br>Probable cause is no aud=
+io from reel(s) 2855 during the exception period</td>=0D=0A<td>0%=
+</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td=
+><td></td>=0D=0A<td>LAQ TV DIG L;8998 (2852) v LAQ TV DIG L;8998 =
+(2855)<br>Probable cause is no audio from reel(s) 2855 during the=
+ exception period</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=
+=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>LAQ TV DIG =
+L;8998 (2854) v LAQ TV DIG L;8998 (2855)<br>Probable cause is no =
+audio from reel(s) 2855 during the exception period</td>=0D=0A<td=
+>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D"=
+DarkGray">=0D=0A<td colspan=3D4><b>LAZIO TV DIG L;6711</b> - Loca=
+l: 2 - Remote: 2 - Total: 4</td>=0D=0A</tr>=0D=0A<tr style=3D"fon=
+t-size:100%">=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp Mat=
+ch %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match % O=
+nly</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<=
+td style=3D"color:firebrick">LAZIO=20TV DIG L;6711 (1684) v TESTS=
+OSP_GOLD TV SAT;9913 (9241)</td>=0D=0A<td style=3D"color:firebric=
+k">27%</td>=0D=0A<td>LAZIO TV DIG L;6711 (1683) v LAZIO TV DIG L;=
+6711 (1682)</td>=0D=0A<td>90%</td>=0D=0A</tr>=0D=0A<tr style=3D"f=
+ont-size:100%">=0D=0A<td style=3D"color:firebrick">LAZIO TV DIG L=
+;6711 (1681) v TESTSOSP_GOLD TV SAT;9913 (9241)</td>=0D=0A<td sty=
+le=3D"color:firebrick">27%</td>=0D=0A<td></td><td></td>=0D=0A</tr=
+>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td>LAZIO TV DIG L;6711=
+ (All 4 Reels - 1681,1682,1683,1684) v TVA VICENZA CI SAT L;6512 =
+(All 3 Reels - 2921,2922,2923)</td>=0D=0A<td>9%</td>=0D=0A<td></t=
+d><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D=
+"DarkGray">=0D=0A<td colspan=3D4><b>LE CRONACHE DIG L;9252</b> - =
+Local: 2 - Remote: 3 - Total: 5</td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp=
+ Match %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match=
+ % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td></td><td></td>=0D=0A<td style=3D"color:firebrick">LE CRONACHE=
+ DIG L;9252 (2014) v LE CRONACHE DIG L;9252 (2016)</td>=0D=0A<td =
+style=3D"color:firebrick">6%</td>=0D=0A</tr>=0D=0A<tr style=3D"fo=
+nt-size:100%">=0D=0A<td></td><td></td>=0D=0A<td style=3D"color:fi=
+rebrick">LE CRONACHE DIG L;9252 (2013) v LE CRONACHE DIG L;9252 (=
+2016)</td>=0D=0A<td style=3D"color:firebrick">7%</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td st=
+yle=3D"color:firebrick">LE CRONACHE DIG L;9252 (2015) v LE CRONAC=
+HE DIG L;9252 (2016)</td>=0D=0A<td style=3D"color:firebrick">8%</=
+td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><=
+td></td>=0D=0A<td>LE CRONACHE DIG L;9252 (2014) v LE CRONACHE DIG=
+ L;9252 (2013)</td>=0D=0A<td>92%</td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>LE CRONACHE DI=
+G L;9252 (2012) v LE CRONACHE DIG L;9252 (2014)</td>=0D=0A<td>94%=
+</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td=
+><td></td>=0D=0A<td>LE CRONACHE DIG L;9252 (2014) v LE CRONACHE D=
+IG L;9252 (2017)</td>=0D=0A<td>94%</td>=0D=0A</tr>=0D=0A<tr style=
+=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b=
+>MEDIASET EXTRA DIG/PSAT/TSAT  N;7972</b> - Local: 4 - Remote: 0 =
+- Total: 4</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td><b>External</b></td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A=
+<td><b>Internal</b></td>=0D=0A<td><b>Match % Only</b></td>=0D=0A<=
+/tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td>MEDIASET EXTRA DIG/PSAT/TSAT  N;7972 (3737) v MEDIASET EXTRA =
+DIG/PSAT/TSAT  N;7972 (All Other 3 Reels - 3731,3732,3733)</td>=0D=0A=
+<td>89 - 92%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bg=
+color=3D"DarkGray">=0D=0A<td colspan=3D4><b>MONOSCOPIO 1000 N;655=
+18</b> - Local: 3 - Remote: 0 - Total: 3</td>=0D=0A</tr>=0D=0A<tr=
+ style=3D"font-size:100%">=0D=0A<td><b>External</b></td>=0D=0A<td=
+><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<td=
+><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:=
+100%">=0D=0A<td></td><td></td>=0D=0A<td style=3D"color:firebrick"=
+>MONOSCOPIO 1000 N;65518 (All 3 Reels - 9990,9991,9992)</td>=0D=0A=
+<td style=3D"color:firebrick">0%</td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>MO=
+NOSCOPIO 400  N;65517</b> - Local: 3 - Remote: 0 - Total: 3</td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>External</b>=
+</td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b>=
+</td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=
+=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td style=3D"co=
+lor:firebrick">MONOSCOPIO 400  N;65517 (All 3 Reels - 9980,9981,9=
+982)</td>=0D=0A<td style=3D"color:firebrick">0%</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colsp=
+an=3D4><b>OTTO CHANNEL DIG L;9373</b> - Local: 2 - Remote: 2 - To=
+tal: 4</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<t=
+d><b>External</b></td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<t=
+d><b>Internal</b></td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</t=
+r>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td>OTTO CHANNEL DIG L;9373 (2485) v OTTO CHANNEL DIG L;9373 (248=
+7)</td>=0D=0A<td>93%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:=
+100%">=0D=0A<td></td><td></td>=0D=0A<td>OTTO CHANNEL DIG L;9373 (=
+2482) v OTTO CHANNEL DIG L;9373 (2485)</td>=0D=0A<td>94%</td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A=
+<td colspan=3D4><b>PADRE PIO TV DIG/SAT/TSAT  N;6655</b> - Local:=
+ 4 - Remote: 1 - Total: 5</td>=0D=0A</tr>=0D=0A<tr style=3D"font-=
+size:100%">=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp Match=
+ %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match % Onl=
+y</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td=
+ style=3D"color:firebrick">PADRE PIO TV DIG/SAT/TSAT  N;6655 (324=
+4) v NOPROD_STUDIO 1 DIG L;9912 (584)</td>=0D=0A<td style=3D"colo=
+r:firebrick">49%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr=
+ style=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D=
+4><b>PEER.TV SUDTIROL DIG L;7770</b> - Local: 2 - Remote: 1 - Tot=
+al: 3</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td=
+><b>External</b></td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td=
+><b>Internal</b></td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr=
+>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td>PEER.TV SUDTIROL DIG L;7770 (1664) v PEER.TV SUDTIROL DIG L;7=
+770 (1665)<br>Probable cause is no audio from reel(s) 1665 during=
+ the exception period</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr s=
+tyle=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D=
+4><b>PRIMA TIVVU' 2 DIG  L;9469</b> - Local: 2 - Remote: 2 - Tota=
+l: 4</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td>=
+<b>External</b></td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td>=
+<b>Internal</b></td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=
+=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td>PRIMA TIVVU' 2 DIG  L;9469 (1352) v PRIMA TIVVU' 2 DIG  L;946=
+9 (1357)</td>=0D=0A<td>93%</td>=0D=0A</tr>=0D=0A<tr style=3D"font=
+-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>PRIMA TIVVU' 2 DIG =
+ L;9469 (1352) v PRIMA TIVVU' 2 DIG  L;9469 (1358)</td>=0D=0A<td>=
+93%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D"=
+DarkGray">=0D=0A<td colspan=3D4><b>PRIMANTENNA DIG L;6603</b> - L=
+ocal: 2 - Remote: 2 - Total: 4</td>=0D=0A</tr>=0D=0A<tr style=3D"=
+font-size:100%">=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp =
+Match %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match =
+% Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td></td><td></td>=0D=0A<td>PRIMANTENNA DIG L;6603 (594) v PRIMAN=
+TENNA DIG L;6603 (596)<br>Probable cause is no audio from reel(s)=
+ 596 during the exception period</td>=0D=0A<td>0%</td>=0D=0A</tr>=
+=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td>PRIMANTENNA DIG L;6603 (593) v PRIMANTENNA DIG L;6603 (596)<b=
+r>Probable cause is no audio from reel(s) 596 during the exceptio=
+n period</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-=
+size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>PRIMO CA=
+NALE DIG L;6620</b> - Local: 1 - Remote: 3 - Total: 4</td>=0D=0A<=
+/tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>External</b><=
+/td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b><=
+/td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>PRIMO CANALE D=
+IG L;6620 (1562) v PRIMO CANALE DIG L;6620 (1563)<br>Probable cau=
+se is no audio from reel(s) 1563 during the exception period</td>=
+=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td></td><td></td>=0D=0A<td>PRIMO CANALE DIG L;6620 (1561) v PRIM=
+O CANALE DIG L;6620 (1563)<br>Probable cause is no audio from ree=
+l(s) 1563 during the exception period</td>=0D=0A<td>0%</td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A=
+<td colspan=3D4><b>RADIO BIRIKINA TV DIG R L;9048</b> - Local: 2 =
+- Remote: 2 - Total: 4</td>=0D=0A</tr>=0D=0A<tr style=3D"font-siz=
+e:100%">=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp Match %<=
+/b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match % Only</=
+b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></=
+td><td></td>=0D=0A<td>RADIO BIRIKINA TV DIG R L;9048 (2266) v RAD=
+IO BIRIKINA TV DIG R L;9048 (2263)</td>=0D=0A<td>93%</td>=0D=0A</=
+tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td>RADIO BIRIKINA TV DIG R L;9048 (2266) v RADIO BIRIKINA TV DIG=
+ R L;9048 (2264)</td>=0D=0A<td>94%</td>=0D=0A</tr>=0D=0A<tr style=
+=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b=
+>RADIO BRUNO TV DIG R  L;8129</b> - Local: 2 - Remote: 2 - Total:=
+ 4</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b=
+>External</b></td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b=
+>Internal</b></td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td st=
+yle=3D"color:firebrick">RADIO BRUNO TV DIG R  L;8129 (2251) v RAD=
+IO BRUNO TV DIG R  L;8129 (2254)</td>=0D=0A<td style=3D"color:fir=
+ebrick">88%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td></td><td></td>=0D=0A<td>RADIO BRUNO TV DIG R  L;8129 (2252) v=
+ RADIO BRUNO TV DIG R  L;8129 (2254)</td>=0D=0A<td>90%</td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A=
+<td colspan=3D4><b>RADIO ITALIA ANNI 60 TV  DIG R  L;6531</b> - L=
+ocal: 1 - Remote: 3 - Total: 4</td>=0D=0A</tr>=0D=0A<tr style=3D"=
+font-size:100%">=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp =
+Match %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match =
+% Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td></td><td></td>=0D=0A<td>RADIO ITALIA ANNI 60 TV  DIG R  L;653=
+1 (802) v RADIO ITALIA ANNI 60 TV  DIG R  L;6531 (805)</td>=0D=0A=
+<td>93%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=
+=3D"DarkGray">=0D=0A<td colspan=3D4><b>RADIO ROMA (ex Europa tv) =
+TV DIG L;7109</b> - Local: 1 - Remote: 3 - Total: 4</td>=0D=0A</t=
+r>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>External</b></t=
+d>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b></t=
+d>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>RADIO ROMA (ex=
+ Europa tv) TV DIG L;7109 (2071) v RADIO ROMA (ex Europa tv) TV D=
+IG L;7109 (2073)</td>=0D=0A<td>92%</td>=0D=0A</tr>=0D=0A<tr style=
+=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>RADIO ROMA =
+(ex Europa tv) TV DIG L;7109 (2078) v RADIO ROMA (ex Europa tv) T=
+V DIG L;7109 (2073)</td>=0D=0A<td>93%</td>=0D=0A</tr>=0D=0A<tr st=
+yle=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>RADIO RO=
+MA (ex Europa tv) TV DIG L;7109 (2071) v RADIO ROMA (ex Europa tv=
+) TV DIG L;7109 (2072)</td>=0D=0A<td>93%</td>=0D=0A</tr>=0D=0A<tr=
+ style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>RADIO=
+ ROMA (ex Europa tv) TV DIG L;7109 (2074) v RADIO ROMA (ex Europa=
+ tv) TV DIG L;7109 (2073)</td>=0D=0A<td>93%</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>RA=
+DIO ROMA (ex Europa tv) TV DIG L;7109 (2078) v RADIO ROMA (ex Eur=
+opa tv) TV DIG L;7109 (2072)</td>=0D=0A<td>94%</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>RA=
+DIO ROMA (ex Europa tv) TV DIG L;7109 (2071) v RADIO ROMA (ex Eur=
+opa tv) TV DIG L;7109 (2075)</td>=0D=0A<td>94%</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>RA=
+DIO ROMA (ex Europa tv) TV DIG L;7109 (2074) v RADIO ROMA (ex Eur=
+opa tv) TV DIG L;7109 (2075)</td>=0D=0A<td>94%</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colsp=
+an=3D4><b>RADIO ROMA TELEVISION (ex Supernova) DIG  L;8277</b> - =
+Local: 1 - Remote: 3 - Total: 4</td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp=
+ Match %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match=
+ % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td></td><td></td>=0D=0A<td>RADIO ROMA TELEVISION (ex Supernova) =
+DIG  L;8277 (2041) v RADIO ROMA TELEVISION (ex Supernova) DIG  L;=
+8277 (2042)</td>=0D=0A<td>92%</td>=0D=0A</tr>=0D=0A<tr style=3D"f=
+ont-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>RADIO ROMA TELEV=
+ISION (ex Supernova) DIG  L;8277 (2044) v RADIO ROMA TELEVISION (=
+ex Supernova) DIG  L;8277 (2042)</td>=0D=0A<td>94%</td>=0D=0A</tr=
+>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td>RADIO ROMA TELEVISION (ex Supernova) DIG  L;8277 (2043) v RAD=
+IO ROMA TELEVISION (ex Supernova) DIG  L;8277 (2041)</td>=0D=0A<t=
+d>94%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td=
+></td><td></td>=0D=0A<td>RADIO ROMA TELEVISION (ex Supernova) DIG=
+  L;8277 (2048) v RADIO ROMA TELEVISION (ex Supernova) DIG  L;827=
+7 (2042)</td>=0D=0A<td>94%</td>=0D=0A</tr>=0D=0A<tr style=3D"font=
+-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>RADIOFR=
+ECCIA DIG/SAT/TSAT R N;9505</b> - Local: 3 - Remote: 1 - Total: 4=
+</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>E=
+xternal</b></td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>I=
+nternal</b></td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>RA=
+DIOFRECCIA DIG/SAT/TSAT R N;9505 (1206) v RADIOFRECCIA DIG/SAT/TS=
+AT R N;9505 (All Other 3 Reels - 1201,1202,1203)</td>=0D=0A<td>93=
+%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D"Da=
+rkGray">=0D=0A<td colspan=3D4><b>RADIONORBA DIG/SAT</b> - Local: =
+5 - Remote: 2 - Total: 7</td>=0D=0A</tr>=0D=0A<tr style=3D"font-s=
+ize:100%">=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp Match =
+%</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match % Only=
+</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td>=
+</td><td></td>=0D=0A<td>RADIONORBA TELEVISION DIG R  L;9393 (All =
+4 Reels - 441,443,444,445) v RADIONORBA CI SAT/TSAT R L;9393 (All=
+ 3 Reels - 2721,2722,2723)</td>=0D=0A<td>73 - 82%</td>=0D=0A</tr>=
+=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td style=3D"color:firebrick">RADIONORBA TELEVISION DIG R  L;9393=
+ (443) v RADIONORBA TELEVISION DIG R  L;9393 (444)</td>=0D=0A<td =
+style=3D"color:firebrick">88%</td>=0D=0A</tr>=0D=0A<tr style=3D"f=
+ont-size:100%">=0D=0A<td></td><td></td>=0D=0A<td style=3D"color:f=
+irebrick">RADIONORBA TELEVISION DIG R  L;9393 (444) v RADIONORBA =
+TELEVISION DIG R  L;9393 (446)</td>=0D=0A<td style=3D"color:fireb=
+rick">89%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td></td><td></td>=0D=0A<td>RADIONORBA TELEVISION DIG R  L;9393 (=
+444) v RADIONORBA TELEVISION DIG R  L;9393 (449)</td>=0D=0A<td>90=
+%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></t=
+d><td></td>=0D=0A<td>RADIONORBA TELEVISION DIG R  L;9393 (441) v =
+RADIONORBA TELEVISION DIG R  L;9393 (444)</td>=0D=0A<td>91%</td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A=
+<td colspan=3D4><b>RAI 3(DOUBLE RAI 3) DIG N;9455</b> - Local: 3 =
+- Remote: 0 - Total: 3</td>=0D=0A</tr>=0D=0A<tr style=3D"font-siz=
+e:100%">=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp Match %<=
+/b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match % Only</=
+b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></=
+td><td></td>=0D=0A<td>RAI 3(DOUBLE RAI 3) DIG N;9455 (4103) v RAI=
+ 3(DOUBLE RAI 3) DIG N;9455 (Both Other Reels - 4100,4101)<br>Pro=
+bable cause is no audio from reel(s) 4103 during the exception pe=
+riod</td>=0D=0A<td>93%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-siz=
+e:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>RAI 3(Ligur=
+ia) N;0003</b> - Local: 3 - Remote: 1 - Total: 4</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td><b>External</b></td>=0D=0A=
+<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A=
+<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-si=
+ze:100%">=0D=0A<td></td><td></td>=0D=0A<td>RAI 3(Liguria) N;0003 =
+(932) v RAI 3(Liguria) N;0003 (933)<br>Probable cause is no audio=
+ from reel(s) 933 during the exception period</td>=0D=0A<td>0%</t=
+d>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><t=
+d></td>=0D=0A<td>RAI 3(Liguria) N;0003 (932) v RAI 3(Liguria) N;0=
+003 (936)<br>Probable cause is no audio from reel(s) 936 during t=
+he exception period</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr sty=
+le=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4>=
+<b>RAI 3(Sardegna) N;0003</b> - Local: 3 - Remote: 1 - Total: 4</=
+td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>Ext=
+ernal</b></td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>Int=
+ernal</b></td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>RA=
+I 3(Sardegna) N;0003 (1093) v RAI 3(Sardegna) N;0003 (1095)<br>Pr=
+obable cause is no audio from reel(s) 1095 during the exception p=
+eriod</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-siz=
+e:100%">=0D=0A<td></td><td></td>=0D=0A<td>RAI 3(Sardegna) N;0003 =
+(1093) v RAI 3(Sardegna) N;0003 (1096)<br>Probable cause is no au=
+dio from reel(s) 1096 during the exception period</td>=0D=0A<td>0=
+%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D"Da=
+rkGray">=0D=0A<td colspan=3D4><b>RAI 3(Toscana) N;0003</b> - Loca=
+l: 3 - Remote: 1 - Total: 4</td>=0D=0A</tr>=0D=0A<tr style=3D"fon=
+t-size:100%">=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp Mat=
+ch %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match % O=
+nly</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<=
+td></td><td></td>=0D=0A<td>RAI 3(Toscana) N;0003 (995) v RAI 3(To=
+scana) N;0003 (992)</td>=0D=0A<td>94%</td>=0D=0A</tr>=0D=0A<tr st=
+yle=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4=
+><b>RAI 3(Trentino) N;0003</b> - Local: 4 - Remote: 2 - Total: 6<=
+/td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>Ex=
+ternal</b></td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>In=
+ternal</b></td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>RA=
+I 3(Trentino) N;0003 (941) v RAI 3(Trentino) N;0003 (945)<br>Prob=
+able cause is no audio from reel(s) 945 during the exception peri=
+od</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:1=
+00%">=0D=0A<td></td><td></td>=0D=0A<td>RAI 3(Trentino) N;0003 (94=
+1) v RAI 3(Trentino) N;0003 (948)<br>Probable cause is no audio f=
+rom reel(s) 948 during the exception period</td>=0D=0A<td>0%</td>=
+=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td>=
+</td>=0D=0A<td>RAI 3(Trentino) N;0003 (940) v RAI 3(Trentino) N;0=
+003 (945)<br>Probable cause is no audio from reel(s) 945 during t=
+he exception period</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr sty=
+le=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>RAI 3(Tre=
+ntino) N;0003 (940) v RAI 3(Trentino) N;0003 (948)<br>Probable ca=
+use is no audio from reel(s) 948 during the exception period</td>=
+=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bg=
+color=3D"DarkGray">=0D=0A<td colspan=3D4><b>RAI 3(Trento Sud Tiro=
+l) N;0003</b> - Local: 2 - Remote: 1 - Total: 3</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td><b>External</b></td>=0D=0A=
+<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A=
+<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-si=
+ze:100%">=0D=0A<td></td><td></td>=0D=0A<td>RAI 3(Trento Sud Tirol=
+) N;0003 (1101) v RAI 3(Trento Sud Tirol) N;0003 (1105)<br>Probab=
+le cause is no audio from reel(s) 1105 during the exception perio=
+d</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:10=
+0%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>REI TV DIG  L;6=
+790</b> - Local: 2 - Remote: 2 - Total: 4</td>=0D=0A</tr>=0D=0A<t=
+r style=3D"font-size:100%">=0D=0A<td><b>External</b></td>=0D=0A<t=
+d><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<t=
+d><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size=
+:100%">=0D=0A<td></td><td></td>=0D=0A<td>REI TV DIG  L;6790 (3434=
+) v REI TV DIG  L;6790 (3433)<br>Probable cause is no audio from =
+reel(s) 3433 during the exception period</td>=0D=0A<td>0%</td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td>REI TV DIG  L;6790 (3432) v REI TV DIG  L;6790 (3433)<br>Prob=
+able cause is no audio from reel(s) 3433 during the exception per=
+iod</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:=
+100%">=0D=0A<td></td><td></td>=0D=0A<td>REI TV DIG  L;6790 (3434)=
+ v REI TV DIG  L;6790 (3435)</td>=0D=0A<td>91%</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>RE=
+I TV DIG  L;6790 (3437) v REI TV DIG  L;6790 (3434)</td>=0D=0A<td=
+>94%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D=
+"DarkGray">=0D=0A<td colspan=3D4><b>RETE 4 DIG/PSAT/TSAT  N;0006<=
+/b> - Local: 5 - Remote: 0 - Total: 5</td>=0D=0A</tr>=0D=0A<tr st=
+yle=3D"font-size:100%">=0D=0A<td><b>External</b></td>=0D=0A<td><b=
+>Unexp Match %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b=
+>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100=
+%">=0D=0A<td>RETE 4 DIG/PSAT/TSAT  N;0006 (All 5 Reels - 60,62,65=
+,67,68) v TGCOM 24 DIG/SAT/TSAT  N;7999 (All 5 Reels - 1121,1123,=
+1125,1127,1128)</td>=0D=0A<td>14%</td>=0D=0A<td></td><td></td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A=
+<td colspan=3D4><b>RETE 4 DOUBLE DIG/TSAT N;9098</b> - Local: 2 -=
+ Remote: 0 - Total: 2</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size=
+:100%">=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp Match %</=
+b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match % Only</b=
+></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td>RET=
+E 4 DOUBLE DIG/TSAT N;9098 (Both Reels - 4271,4272) v TGCOM 24 DI=
+G/SAT/TSAT  N;7999 (All 5 Reels - 1121,1123,1125,1127,1128)</td>=0D=0A=
+<td>14%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>RE=
+TE 7 DIG/SAT</b> - Local: 4 - Remote: 3 - Total: 7</td>=0D=0A</tr=
+>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>External</b></td=
+>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b></td=
+>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"=
+font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>RETE 7 DIG  L;7=
+327 (563) v RETE 7 DIG  L;7327 (565)<br>Probable cause is no audi=
+o from reel(s) 565 during the exception period</td>=0D=0A<td>0%</=
+td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><=
+td></td>=0D=0A<td>RETE 7 DIG  L;7327 (562) v RETE 7 DIG  L;7327 (=
+565)<br>Probable cause is no audio from reel(s) 565 during the ex=
+ception period</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>RETE 7 DIG  L;=
+7327 (564) v RETE 7 DIG  L;7327 (565)<br>Probable cause is no aud=
+io from reel(s) 565 during the exception period</td>=0D=0A<td>0%<=
+/td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td>=
+<td></td>=0D=0A<td>RETE 7 DIG  L;7327 (All 4 Reels - 561,562,563,=
+564) v RETE 7 - People Tv CI SAT L;7327 (All 3 Reels - 3381,3382,=
+3383)</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-siz=
+e:100%">=0D=0A<td></td><td></td>=0D=0A<td style=3D"color:firebric=
+k">RETE 7 DIG  L;7327 (563) v RETE 7 DIG  L;7327 (569)</td>=0D=0A=
+<td style=3D"color:firebrick">77%</td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td style=3D"color=
+:firebrick">RETE 7 DIG  L;7327 (562) v RETE 7 DIG  L;7327 (569)</=
+td>=0D=0A<td style=3D"color:firebrick">79%</td>=0D=0A</tr>=0D=0A<=
+tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td sty=
+le=3D"color:firebrick">RETE 7 DIG  L;7327 (564) v RETE 7 DIG  L;7=
+327 (569)</td>=0D=0A<td style=3D"color:firebrick">80%</td>=0D=0A<=
+/tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td>RETE 7 DIG  L;7327 (563) v RETE 7 DIG  L;7327 (562)</td>=0D=0A=
+<td>93%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=
+=3D"DarkGray">=0D=0A<td colspan=3D4><b>RETE 8 ABRUZZO DIG  L;6719=
+</b> - Local: 1 - Remote: 3 - Total: 4</td>=0D=0A</tr>=0D=0A<tr s=
+tyle=3D"font-size:100%">=0D=0A<td><b>External</b></td>=0D=0A<td><=
+b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<td><=
+b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:10=
+0%">=0D=0A<td></td><td></td>=0D=0A<td>RETE 8 ABRUZZO DIG  L;6719 =
+(1622) v RETE 8 ABRUZZO DIG  L;6719 (1625)<br>Probable cause is n=
+o audio from reel(s) 1625 during the exception period</td>=0D=0A<=
+td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td=
+></td><td></td>=0D=0A<td>RETE 8 ABRUZZO DIG  L;6719 (1621) v RETE=
+ 8 ABRUZZO DIG  L;6719 (1625)<br>Probable cause is no audio from =
+reel(s) 1625 during the exception period</td>=0D=0A<td>0%</td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td>RETE 8 ABRUZZO DIG  L;6719 (1624) v RETE 8 ABRUZZO DIG  L;671=
+9 (1625)<br>Probable cause is no audio from reel(s) 1625 during t=
+he exception period</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr sty=
+le=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4>=
+<b>RETE ORO DIG  L;6597</b> - Local: 2 - Remote: 2 - Total: 4</td=
+>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>Exter=
+nal</b></td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>Inter=
+nal</b></td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<t=
+r style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>RETE=
+ ORO DIG  L;6597 (2676) v RETE ORO DIG  L;6597 (2672)</td>=0D=0A<=
+td>90%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<t=
+d></td><td></td>=0D=0A<td>RETE ORO DIG  L;6597 (2676) v RETE ORO =
+DIG  L;6597 (2674)</td>=0D=0A<td>94%</td>=0D=0A</tr>=0D=0A<tr sty=
+le=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4>=
+<b>ROMA TV 82 DIG L;9506</b> - Local: 2 - Remote: 2 - Total: 4</t=
+d>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>Exte=
+rnal</b></td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>Inte=
+rnal</b></td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<=
+tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>ROM=
+A TV 82 DIG L;9506 (2213) v ROMA TV 82 DIG L;9506 (All Other 3 Re=
+els - 2211,2212,2214)</td>=0D=0A<td>90%</td>=0D=0A</tr>=0D=0A<tr =
+style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>ROMA T=
+V 82 DIG L;9506 (2211) v ROMA TV 82 DIG L;9506 (2215)</td>=0D=0A<=
+td>91%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<t=
+d></td><td></td>=0D=0A<td>ROMA TV 82 DIG L;9506 (2214) v ROMA TV =
+82 DIG L;9506 (2215)</td>=0D=0A<td>91%</td>=0D=0A</tr>=0D=0A<tr s=
+tyle=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>ROMA TV=
+ 82 DIG L;9506 (2212) v ROMA TV 82 DIG L;9506 (All Other 3 Reels =
+- 2211,2213,2214)</td>=0D=0A<td>89 - 91%</td>=0D=0A</tr>=0D=0A<tr=
+ style=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D=
+4><b>RTTR DIG  L;6739</b> - Local: 2 - Remote: 2 - Total: 4</td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>External</b>=
+</td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b>=
+</td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=
+=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>RTTR DIG  L=
+;6739 (1701) v RTTR DIG  L;6739 (1705)<br>Probable cause is no au=
+dio from reel(s) 1705 during the exception period</td>=0D=0A<td>0=
+%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></t=
+d><td></td>=0D=0A<td>RTTR DIG  L;6739 (1704) v RTTR DIG  L;6739 (=
+1705)<br>Probable cause is no audio from reel(s) 1705 during the =
+exception period</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>RU=
+MORE BIANCO  N;65516</b> - Local: 2 - Remote: 0 - Total: 2</td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>External</b>=
+</td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b>=
+</td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=
+=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td style=3D"co=
+lor:firebrick">RUMORE BIANCO  N;65516 (Both Reels - 9971,9972)</t=
+d>=0D=0A<td style=3D"color:firebrick">0%</td>=0D=0A</tr>=0D=0A<tr=
+ style=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D=
+4><b>RUMORE DI FONDO  N;65515</b> - Local: 6 - Remote: 0 - Total:=
+ 6</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b=
+>External</b></td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b=
+>Internal</b></td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td st=
+yle=3D"color:firebrick">RUMORE DI FONDO  N;65515 (65183) v RUMORE=
+ DI FONDO  N;65515 (All Other 5 Reels - 65180,65181,65182,65185,6=
+5186)</td>=0D=0A<td style=3D"color:firebrick">0%</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td st=
+yle=3D"color:firebrick">RUMORE DI FONDO  N;65515 (65185) v RUMORE=
+ DI FONDO  N;65515 (All Other 5 Reels - 65180,65181,65182,65183,6=
+5186)</td>=0D=0A<td style=3D"color:firebrick">0%</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td st=
+yle=3D"color:firebrick">RUMORE DI FONDO  N;65515 (65186) v RUMORE=
+ DI FONDO  N;65515 (All Other 5 Reels - 65180,65181,65182,65183,6=
+5185)</td>=0D=0A<td style=3D"color:firebrick">0%</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td st=
+yle=3D"color:firebrick">RUMORE DI FONDO  N;65515 (65180) v RUMORE=
+ DI FONDO  N;65515 (65182)</td>=0D=0A<td style=3D"color:firebrick=
+">10%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td=
+></td><td></td>=0D=0A<td style=3D"color:firebrick">RUMORE DI FOND=
+O  N;65515 (65181) v RUMORE DI FONDO  N;65515 (65180)</td>=0D=0A<=
+td style=3D"color:firebrick">15%</td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>SA=
+RDEGNA UNO DIG L;6576</b> - Local: 2 - Remote: 2 - Total: 4</td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>External</b>=
+</td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b>=
+</td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=
+=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>SARDEGNA UN=
+O DIG L;6576 (1883) v SARDEGNA UNO DIG L;6576 (1886)<br>Probable =
+cause is no audio from reel(s) 1886 during the exception period</=
+td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%"=
+>=0D=0A<td></td><td></td>=0D=0A<td>SARDEGNA UNO DIG L;6576 (1884)=
+ v SARDEGNA UNO DIG L;6576 (1886)<br>Probable cause is no audio f=
+rom reel(s) 1886 during the exception period</td>=0D=0A<td>0%</td=
+>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D"DarkGra=
+y">=0D=0A<td colspan=3D4><b>SESTARETE (Sicilia) DIG L;7690</b> - =
+Local: 2 - Remote: 2 - Total: 4</td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp=
+ Match %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match=
+ % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td>SESTARETE (Sicilia) DIG L;7690 (All 4 Reels - 3333,3334,3335,=
+3337) v TELEPACE DIG L;7881 (All 4 Reels - 9002,9003,9004,9007)</=
+td>=0D=0A<td>31 - 34%</td>=0D=0A<td>SESTARETE (Sicilia) DIG L;769=
+0 (3334) v SESTARETE (Sicilia) DIG L;7690 (3332)<br>Probable caus=
+e is no audio from reel(s) 3332 during the exception period</td>=0D=0A=
+<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<t=
+d style=3D"color:firebrick">SESTARETE (Sicilia) DIG L;7690 (3334)=
+ v TELEPACE DIG L;7881 (9006)</td>=0D=0A<td style=3D"color:firebr=
+ick">34%</td>=0D=0A<td>SESTARETE (Sicilia) DIG L;7690 (3333) v SE=
+STARETE (Sicilia) DIG L;7690 (3332)<br>Probable cause is no audio=
+ from reel(s) 3332 during the exception period</td>=0D=0A<td>0%</=
+td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td style=3D=
+"color:firebrick">SESTARETE (Sicilia) DIG L;7690 (3333) v TELEPAC=
+E DIG L;7881 (9006)</td>=0D=0A<td style=3D"color:firebrick">34%</=
+td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-siz=
+e:100%">=0D=0A<td>SESTARETE (Sicilia) DIG L;7690 (All 4 Reels - 3=
+333,3334,3335,3337) v TELE ONE DIG  L;8344 (All 4 Reels - 3321,33=
+24,3325,3327)</td>=0D=0A<td>31 - 33%</td>=0D=0A<td></td><td></td>=
+=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td style=3D"=
+color:firebrick">SESTARETE (Sicilia) DIG L;7690 (3334) v TGS TELE=
+GIORNALE DI SICILIA DIG  L;6614 (2002)</td>=0D=0A<td style=3D"col=
+or:firebrick">33%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<t=
+r style=3D"font-size:100%">=0D=0A<td>SESTARETE (Sicilia) DIG L;76=
+90 (All 4 Reels - 3333,3334,3335,3337) v TGS TELEGIORNALE DI SICI=
+LIA DIG  L;6614 (All 4 Reels - 2003,2004,2005,2007)</td>=0D=0A<td=
+>31 - 33%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td style=3D"color:firebrick">SESTARETE (S=
+icilia) DIG L;7690 (3333) v TESTSOSP_BRESCIA TELENORD;9913 (9224)=
+</td>=0D=0A<td style=3D"color:firebrick">33%</td>=0D=0A<td></td><=
+td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td>S=
+ESTARETE (Sicilia) DIG L;7690 (All 4 Reels - 3333,3334,3335,3337)=
+ v TRM T.R.MEDITERRANEA DIG  L;6684 (All 3 Reels - 2341,2345,2347=
+)</td>=0D=0A<td>31 - 33%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td>SESTARETE (Sicilia) DIG L;=
+7690 (All 4 Reels - 3333,3334,3335,3337) v TELERADIOPACE 1 SAT CI=
+ L;8286 (Both Reels - 4321,4323)</td>=0D=0A<td>33%</td>=0D=0A<td>=
+</td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td style=3D"color:firebrick">TELERADIOPACE 1 DIG L;8286 (1931) v=
+ SESTARETE (Sicilia) DIG L;7690 (All 4 Reels - 3333,3334,3335,333=
+7)</td>=0D=0A<td style=3D"color:firebrick">33%</td>=0D=0A<td></td=
+><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td=
+ style=3D"color:firebrick">SESTARETE (Sicilia) DIG L;7690 (3334) =
+v TELECOLOR  DIG  L;6696 (1961)</td>=0D=0A<td style=3D"color:fire=
+brick">32%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=
+=3D"font-size:100%">=0D=0A<td style=3D"color:firebrick">SESTARETE=
+ (Sicilia) DIG L;7690 (3333) v TGS TELEGIORNALE DI SICILIA DIG  L=
+;6614 (2002)</td>=0D=0A<td style=3D"color:firebrick">32%</td>=0D=0A=
+<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td style=3D"color:firebrick">SESTARETE (Sicilia) DIG L;7690 (333=
+4) v TRM T.R.MEDITERRANEA DIG  L;6684 (2342)</td>=0D=0A<td style=3D=
+"color:firebrick">32%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td style=3D"color:firebrick">=
+SESTARETE (Sicilia) DIG L;7690 (3334) v TELE ONE DIG  L;8344 (332=
+3)</td>=0D=0A<td style=3D"color:firebrick">32%</td>=0D=0A<td></td=
+><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td=
+>SESTARETE (Sicilia) DIG L;7690 (All 4 Reels - 3333,3334,3335,333=
+7) v ANTENNA SICILIA DIG L;6704 (All 4 Reels - 1341,1344,1345,134=
+7)</td>=0D=0A<td>32%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td style=3D"color:firebrick">=
+SESTARETE (Sicilia) DIG L;7690 (3333) v TELECOLOR  DIG  L;6696 (1=
+961)</td>=0D=0A<td style=3D"color:firebrick">32%</td>=0D=0A<td></=
+td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<=
+td style=3D"color:firebrick">SESTARETE (Sicilia) DIG L;7690 (3333=
+) v TRM T.R.MEDITERRANEA DIG  L;6684 (2342)</td>=0D=0A<td style=3D=
+"color:firebrick">32%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td>SESTARETE (Sicilia) DIG L;=
+7690 (All 4 Reels - 3333,3334,3335,3337) v TELECOLOR  DIG  L;6696=
+ (All 4 Reels - 1962,1964,1965,1967)</td>=0D=0A<td>32%</td>=0D=0A=
+<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td style=3D"color:firebrick">SESTARETE (Sicilia) DIG L;7690 (333=
+4) v TESTSOSP_BRESCIA TELENORD;9913 (9224)</td>=0D=0A<td style=3D=
+"color:firebrick">32%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td style=3D"color:firebrick">=
+SESTARETE (Sicilia) DIG L;7690 (3333) v TELE ONE DIG  L;8344 (332=
+3)</td>=0D=0A<td style=3D"color:firebrick">31%</td>=0D=0A<td></td=
+><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td=
+ style=3D"color:firebrick">TELERADIOPACE 1 DIG L;8286 (1934) v SE=
+STARETE (Sicilia) DIG L;7690 (All 4 Reels - 3333,3334,3335,3337)<=
+/td>=0D=0A<td style=3D"color:firebrick">31%</td>=0D=0A<td></td><t=
+d></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td>SE=
+STARETE (Sicilia) DIG L;7690 (All 4 Reels - 3333,3334,3335,3337) =
+v VR VIDEOREGIONE (SICILIA) DIG  L;6747 (All 4 Reels - 2473,2474,=
+2475,2477)</td>=0D=0A<td>22 - 24%</td>=0D=0A<td></td><td></td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td style=3D"color:=
+firebrick">SESTARETE (Sicilia) DIG L;7690 (3333) v VR VIDEOREGION=
+E (SICILIA) DIG  L;6747 (2472)</td>=0D=0A<td style=3D"color:fireb=
+rick">23%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td style=3D"color:firebrick">SESTARETE (S=
+icilia) DIG L;7690 (3334) v VR VIDEOREGIONE (SICILIA) DIG  L;6747=
+ (2472)</td>=0D=0A<td style=3D"color:firebrick">23%</td>=0D=0A<td=
+></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bgco=
+lor=3D"DarkGray">=0D=0A<td colspan=3D4><b>SKY SPORT GOLF SD/HD PS=
+AT S;9819</b> - Local: 3 - Remote: 0 - Total: 3</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td><b>External</b></td>=0D=0A=
+<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A=
+<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-si=
+ze:100%">=0D=0A<td></td><td></td>=0D=0A<td>SKY SPORT GOLF SD/HD P=
+SAT S;9819 (5882) v SKY SPORT GOLF SD/HD PSAT S;9819 (5883)</td>=0D=0A=
+<td>93%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=
+=3D"DarkGray">=0D=0A<td colspan=3D4><b>SKY SPORT TENNIS SD/HD CI =
+PSAT S;7749</b> - Local: 3 - Remote: 0 - Total: 3</td>=0D=0A</tr>=
+=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>External</b></td>=
+=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b></td>=
+=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"f=
+ont-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>SKY SPORT TENNIS=
+ SD/HD CI PSAT S;7749 (6092) v SKY SPORT TENNIS SD/HD CI PSAT S;7=
+749 (Both Other Reels - 6091,6093)</td>=0D=0A<td>90%</td>=0D=0A</=
+tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A=
+<td colspan=3D4><b>SUPER J DIG L;9045</b> - Local: 2 - Remote: 2 =
+- Total: 4</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td><b>External</b></td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A=
+<td><b>Internal</b></td>=0D=0A<td><b>Match % Only</b></td>=0D=0A<=
+/tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td style=3D"color:firebrick">SUPER J DIG L;9045 (3174) v SUPER J=
+ DIG L;9045 (3175)</td>=0D=0A<td style=3D"color:firebrick">88%</t=
+d>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><t=
+d></td>=0D=0A<td style=3D"color:firebrick">SUPER J DIG L;9045 (31=
+75) v SUPER J DIG L;9045 (3171)</td>=0D=0A<td style=3D"color:fire=
+brick">89%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td></td><td></td>=0D=0A<td>SUPER J DIG L;9045 (3173) v SUPER J D=
+IG L;9045 (3171)</td>=0D=0A<td>91%</td>=0D=0A</tr>=0D=0A<tr style=
+=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>SUPER J DIG=
+ L;9045 (3174) v SUPER J DIG L;9045 (3173)</td>=0D=0A<td>93%</td>=
+=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D"DarkGray=
+">=0D=0A<td colspan=3D4><b>TEF DIG  L;6793</b> - Local: 1 - Remot=
+e: 2 - Total: 3</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%"=
+>=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp Match %</b></td=
+>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match % Only</b></td>=
+=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td>TEF DIG  =
+L;6793 (3474) v NOPROD_TELESANTERNO DIG L;9912 (794)</td>=0D=0A<t=
+d>8%</td>=0D=0A<td>TEF DIG  L;6793 (3471) v TEF DIG  L;6793 (Both=
+ Other Reels - 3472,3474)<br>Probable cause is no audio from reel=
+(s) 3471 during the exception period</td>=0D=0A<td>72 - 74%</td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A=
+<td colspan=3D4><b>TELE A DIG  L;6593</b> - Local: 3 - Remote: 1 =
+- Total: 4</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td><b>External</b></td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A=
+<td><b>Internal</b></td>=0D=0A<td><b>Match % Only</b></td>=0D=0A<=
+/tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td>TELE A DIG  L;65=
+93 (3514) v TESTSOSP_7 GOLD SUD (PUGLIA) DIG;9913 (1261)</td>=0D=0A=
+<td>7%</td>=0D=0A<td>TELE A DIG  L;6593 (3512) v TELE A DIG  L;65=
+93 (3517)</td>=0D=0A<td>93%</td>=0D=0A</tr>=0D=0A<tr style=3D"fon=
+t-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>TELE C=
+HIARA -TV2000 DIG  L;6640</b> - Local: 1 - Remote: 3 - Total: 4</=
+td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>Ext=
+ernal</b></td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>Int=
+ernal</b></td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td>TELE CHIARA -TV2000 DIG  L=
+;6640 (All 4 Reels - 821,823,824,828) v TVA VICENZA CI SAT L;6512=
+ (All 3 Reels - 2921,2922,2923)</td>=0D=0A<td>10%</td>=0D=0A<td><=
+/td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bgcolo=
+r=3D"DarkGray">=0D=0A<td colspan=3D4><b>TELE ONE DIG  L;8344</b> =
+- Local: 2 - Remote: 2 - Total: 4</td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp=
+ Match %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match=
+ % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td style=3D"color:firebrick">TELE ONE DIG  L;8344 (3321) v TELEP=
+ACE DIG L;7881 (9006)</td>=0D=0A<td style=3D"color:firebrick">34%=
+</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-s=
+ize:100%">=0D=0A<td style=3D"color:firebrick">TELE ONE DIG  L;834=
+4 (3324) v TELEPACE DIG L;7881 (9006)</td>=0D=0A<td style=3D"colo=
+r:firebrick">34%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr=
+ style=3D"font-size:100%">=0D=0A<td>TELE ONE DIG  L;8344 (All 4 R=
+eels - 3321,3324,3325,3327) v TELEPACE DIG L;7881 (All 4 Reels - =
+9002,9003,9004,9007)</td>=0D=0A<td>30 - 34%</td>=0D=0A<td></td><t=
+d></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td st=
+yle=3D"color:firebrick">TELE ONE DIG  L;8344 (3324) v TGS TELEGIO=
+RNALE DI SICILIA DIG  L;6614 (2002)</td>=0D=0A<td style=3D"color:=
+firebrick">33%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr s=
+tyle=3D"font-size:100%">=0D=0A<td>TELE ONE DIG  L;8344 (All 4 Ree=
+ls - 3321,3324,3325,3327) v TGS TELEGIORNALE DI SICILIA DIG  L;66=
+14 (All 4 Reels - 2003,2004,2005,2007)</td>=0D=0A<td>30 - 33%</td=
+>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:=
+100%">=0D=0A<td>TELE ONE DIG  L;8344 (All 4 Reels - 3321,3324,332=
+5,3327) v SESTARETE (Sicilia) DIG L;7690 (All 4 Reels - 3333,3334=
+,3335,3337)</td>=0D=0A<td>31 - 33%</td>=0D=0A<td></td><td></td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td style=3D"color:=
+firebrick">TELE ONE DIG  L;8344 (3321) v TGS TELEGIORNALE DI SICI=
+LIA DIG  L;6614 (2002)</td>=0D=0A<td style=3D"color:firebrick">32=
+%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-=
+size:100%">=0D=0A<td style=3D"color:firebrick">TELE ONE DIG  L;83=
+44 (3324) v TELECOLOR  DIG  L;6696 (1961)</td>=0D=0A<td style=3D"=
+color:firebrick">31%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td>TELE ONE DIG  L;8344 (All =
+4 Reels - 3321,3324,3325,3327) v TELECOLOR  DIG  L;6696 (All 4 Re=
+els - 1962,1964,1965,1967)</td>=0D=0A<td>28 - 31%</td>=0D=0A<td><=
+/td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td>TELE ONE DIG  L;8344 (All 4 Reels - 3321,3324,3325,3327) v AN=
+TENNA SICILIA DIG L;6704 (All 4 Reels - 1341,1344,1345,1347)</td>=
+=0D=0A<td>28 - 31%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<=
+tr style=3D"font-size:100%">=0D=0A<td style=3D"color:firebrick">T=
+ELE ONE DIG  L;8344 (3321) v TELECOLOR  DIG  L;6696 (1961)</td>=0D=0A=
+<td style=3D"color:firebrick">31%</td>=0D=0A<td></td><td></td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td style=3D"color:=
+firebrick">TELE ONE DIG  L;8344 (3324) v TESTSOSP_BRESCIA TELENOR=
+D;9913 (9224)</td>=0D=0A<td style=3D"color:firebrick">30%</td>=0D=0A=
+<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td>TELE ONE DIG  L;8344 (All 4 Reels - 3321,3324,3325,3327) v TE=
+LERADIOPACE 1 SAT CI L;8286 (Both Reels - 4321,4323)</td>=0D=0A<t=
+d>28 - 30%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=
+=3D"font-size:100%">=0D=0A<td style=3D"color:firebrick">TELE ONE =
+DIG  L;8344 (3321) v TESTSOSP_BRESCIA TELENORD;9913 (9224)</td>=0D=0A=
+<td style=3D"color:firebrick">29%</td>=0D=0A<td></td><td></td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td>TELE ONE DIG  L=
+;8344 (All 4 Reels - 3321,3324,3325,3327) v VR VIDEOREGIONE (SICI=
+LIA) DIG  L;6747 (All 4 Reels - 2473,2474,2475,2477)</td>=0D=0A<t=
+d>21 - 23%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=
+=3D"font-size:100%">=0D=0A<td style=3D"color:firebrick">TELE ONE =
+DIG  L;8344 (3324) v VR VIDEOREGIONE (SICILIA) DIG  L;6747 (2472)=
+</td>=0D=0A<td style=3D"color:firebrick">22%</td>=0D=0A<td></td><=
+td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td s=
+tyle=3D"color:firebrick">TELE ONE DIG  L;8344 (3321) v VR VIDEORE=
+GIONE (SICILIA) DIG  L;6747 (2472)</td>=0D=0A<td style=3D"color:f=
+irebrick">21%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr st=
+yle=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4=
+><b>TELE RADIO PADRE PIO DIG  L;7066</b> - Local: 2 - Remote: 1 -=
+ Total: 3</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td><b>External</b></td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A=
+<td><b>Internal</b></td>=0D=0A<td><b>Match % Only</b></td>=0D=0A<=
+/tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td style=3D"color:f=
+irebrick">TELE RADIO PADRE PIO DIG  L;7066 (1414) v NOPROD_STUDIO=
+ 1 DIG L;9912 (584)</td>=0D=0A<td style=3D"color:firebrick">13%</=
+td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-siz=
+e:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>TELE TUTTO =
+BS7 DIG  L;6623</b> - Local: 2 - Remote: 2 - Total: 4</td>=0D=0A<=
+/tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>External</b><=
+/td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b><=
+/td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>TELE TUTTO BS7=
+ DIG  L;6623 (753) v TELE TUTTO BS7 DIG  L;6623 (755)<br>Probable=
+ cause is no audio from reel(s) 755 during the exception period</=
+td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%"=
+>=0D=0A<td></td><td></td>=0D=0A<td>TELE TUTTO BS7 DIG  L;6623 (75=
+4) v TELE TUTTO BS7 DIG  L;6623 (755)<br>Probable cause is no aud=
+io from reel(s) 755 during the exception period</td>=0D=0A<td>0%<=
+/td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D"Dark=
+Gray">=0D=0A<td colspan=3D4><b>TELE UNICA LECCO DIG  L;6947</b> -=
+ Local: 3 - Remote: 1 - Total: 4</td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp=
+ Match %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match=
+ % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td></td><td></td>=0D=0A<td>TELE UNICA LECCO DIG  L;6947 (1324) v=
+ TELE UNICA LECCO DIG  L;6947 (All Other 3 Reels - 1321,1322,1327=
+)</td>=0D=0A<td>93%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:1=
+00%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>TELEAMBIENTE (=
+Lazio ) DIG  L;7018</b> - Local: 2 - Remote: 2 - Total: 4</td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>External</b>=
+</td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b>=
+</td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=
+=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>TELEAMBIENT=
+E (Lazio ) DIG  L;7018 (1431) v TELEAMBIENTE (Lazio ) DIG  L;7018=
+ (1434)<br>Probable cause is no audio from reel(s) 1434 during th=
+e exception period</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr styl=
+e=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>TELEAMBIEN=
+TE (Lazio ) DIG  L;7018 (1431) v TELEAMBIENTE (Lazio ) DIG  L;701=
+8 (1433)</td>=0D=0A<td>94%</td>=0D=0A</tr>=0D=0A<tr style=3D"font=
+-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>TELEANT=
+ENNA.IT DIG L;9172</b> - Local: 2 - Remote: 1 - Total: 3</td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>External</b>=
+</td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b>=
+</td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=
+=3D"font-size:100%">=0D=0A<td style=3D"color:firebrick">TELEANTEN=
+NA.IT DIG L;9172 (1782) v TESTSOSP_STUDIOPIU_VIDEOBS DIG L;9913 (=
+3183)</td>=0D=0A<td style=3D"color:firebrick">100%</td>=0D=0A<td>=
+TELEANTENNA.IT DIG L;9172 (1782) v TELEANTENNA.IT DIG L;9172 (178=
+6)<br>Probable cause is no audio from reel(s) 1786 during the exc=
+eption period</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"=
+font-size:100%">=0D=0A<td style=3D"color:firebrick">TELEANTENNA.I=
+T DIG L;9172 (1782) v TESTSOSP_STUDIOPIU_VIDEOBS DIG L;9913 (3186=
+)</td>=0D=0A<td style=3D"color:firebrick">97%</td>=0D=0A<td>TELEA=
+NTENNA.IT DIG L;9172 (1782) v TELEANTENNA.IT DIG L;9172 (1787)<br=
+>Probable cause is no audio from reel(s) 1787 during the exceptio=
+n period</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-=
+size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>TELEBELL=
+UNO-DOLOMITI-SAT2000 DIG  L;7680</b> - Local: 2 - Remote: 2 - Tot=
+al: 4</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td=
+><b>External</b></td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td=
+><b>Internal</b></td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr=
+>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td>TELEBELLUNO-DOLOMIT=
+I-SAT2000 DIG  L;7680 (All 4 Reels - 9020,9022,9024,9026) v TVA V=
+ICENZA CI SAT L;6512 (All 3 Reels - 2921,2922,2923)</td>=0D=0A<td=
+>10%</td>=0D=0A<td>TELEBELLUNO-DOLOMITI-SAT2000 DIG  L;7680 (9024=
+) v TELEBELLUNO-DOLOMITI-SAT2000 DIG  L;7680 (9027)</td>=0D=0A<td=
+>90%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td>=
+</td><td></td>=0D=0A<td>TELEBELLUNO-DOLOMITI-SAT2000 DIG  L;7680 =
+(9026) v TELEBELLUNO-DOLOMITI-SAT2000 DIG  L;7680 (9024)</td>=0D=0A=
+<td>94%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=
+=3D"DarkGray">=0D=0A<td colspan=3D4><b>TELECAPRI DIG  L;6613</b> =
+- Local: 3 - Remote: 1 - Total: 4</td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp=
+ Match %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match=
+ % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td></td><td></td>=0D=0A<td>TELECAPRI DIG  L;6613 (1907) v TELECA=
+PRI DIG  L;6613 (1902)</td>=0D=0A<td>92%</td>=0D=0A</tr>=0D=0A<tr=
+ style=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D=
+4><b>TELECITTA' (LIGURIA) DIG L;8270</b> - Local: 1 - Remote: 2 -=
+ Total: 3</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td><b>External</b></td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A=
+<td><b>Internal</b></td>=0D=0A<td><b>Match % Only</b></td>=0D=0A<=
+/tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td>TELECITTA' (LIGURIA) DIG L;8270 (1852) v TELECITTA' (LIGURIA)=
+ DIG L;8270 (1853)<br>Probable cause is no audio from reel(s) 185=
+3 during the exception period</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colsp=
+an=3D4><b>TELECLUBITALIA DIG  L;7441</b> - Local: 4 - Remote: 0 -=
+ Total: 4</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td><b>External</b></td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A=
+<td><b>Internal</b></td>=0D=0A<td><b>Match % Only</b></td>=0D=0A<=
+/tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td>TELECLUBITALIA DIG  L;7441 (2088) v TELECLUBITALIA DIG  L;744=
+1 (2087)</td>=0D=0A<td>90%</td>=0D=0A</tr>=0D=0A<tr style=3D"font=
+-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>TELECLUBITALIA DIG =
+ L;7441 (2082) v TELECLUBITALIA DIG  L;7441 (2088)</td>=0D=0A<td>=
+92%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><=
+/td><td></td>=0D=0A<td>TELECLUBITALIA DIG  L;7441 (2082) v TELECL=
+UBITALIA DIG  L;7441 (2087)</td>=0D=0A<td>92%</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colsp=
+an=3D4><b>TELECOLOR  DIG  L;6696</b> - Local: 2 - Remote: 2 - Tot=
+al: 4</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td=
+><b>External</b></td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td=
+><b>Internal</b></td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr=
+>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td>TELECOLOR  DIG  L;6=
+696 (All 4 Reels - 1962,1964,1965,1967) v ANTENNA SICILIA DIG L;6=
+704 (All 4 Reels - 1341,1344,1345,1347)</td>=0D=0A<td>35%</td>=0D=0A=
+<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td>TELECOLOR  DIG  L;6696 (All 4 Reels - 1962,1964,1965,1967) v =
+TELEPACE DIG L;7881 (All 4 Reels - 9002,9003,9004,9007)</td>=0D=0A=
+<td>31 - 33%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr sty=
+le=3D"font-size:100%">=0D=0A<td>TELECOLOR  DIG  L;6696 (All 4 Ree=
+ls - 1962,1964,1965,1967) v TELERADIOPACE 1 SAT CI L;8286 (Both R=
+eels - 4321,4323)</td>=0D=0A<td>33%</td>=0D=0A<td></td><td></td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td>TELECOLOR  DIG =
+ L;6696 (All 4 Reels - 1962,1964,1965,1967) v TGS TELEGIORNALE DI=
+ SICILIA DIG  L;6614 (All 4 Reels - 2003,2004,2005,2007)</td>=0D=0A=
+<td>31 - 33%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr sty=
+le=3D"font-size:100%">=0D=0A<td style=3D"color:firebrick">TELECOL=
+OR  DIG  L;6696 (1962) v TRM T.R.MEDITERRANEA DIG  L;6684 (2342)<=
+/td>=0D=0A<td style=3D"color:firebrick">32%</td>=0D=0A<td></td><t=
+d></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td st=
+yle=3D"color:firebrick">TELECOLOR  DIG  L;6696 (1962) v TELEPACE =
+DIG L;7881 (9006)</td>=0D=0A<td style=3D"color:firebrick">32%</td=
+>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:=
+100%">=0D=0A<td style=3D"color:firebrick">TELECOLOR  DIG  L;6696 =
+(1964) v TRM T.R.MEDITERRANEA DIG  L;6684 (2342)</td>=0D=0A<td st=
+yle=3D"color:firebrick">32%</td>=0D=0A<td></td><td></td>=0D=0A</t=
+r>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td style=3D"color:fir=
+ebrick">TELECOLOR  DIG  L;6696 (1964) v TELEPACE DIG L;7881 (9006=
+)</td>=0D=0A<td style=3D"color:firebrick">32%</td>=0D=0A<td></td>=
+<td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td =
+style=3D"color:firebrick">TELECOLOR  DIG  L;6696 (1964) v TGS TEL=
+EGIORNALE DI SICILIA DIG  L;6614 (2002)</td>=0D=0A<td style=3D"co=
+lor:firebrick">32%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<=
+tr style=3D"font-size:100%">=0D=0A<td>TELECOLOR  DIG  L;6696 (All=
+ 4 Reels - 1962,1964,1965,1967) v TRM T.R.MEDITERRANEA DIG  L;668=
+4 (All 3 Reels - 2341,2345,2347)</td>=0D=0A<td>32%</td>=0D=0A<td>=
+</td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td>TELECOLOR  DIG  L;6696 (All 4 Reels - 1962,1964,1965,1967) v =
+SESTARETE (Sicilia) DIG L;7690 (All 4 Reels - 3333,3334,3335,3337=
+)</td>=0D=0A<td>32%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td style=3D"color:firebrick">=
+TELECOLOR  DIG  L;6696 (1962) v TGS TELEGIORNALE DI SICILIA DIG  =
+L;6614 (2002)</td>=0D=0A<td style=3D"color:firebrick">32%</td>=0D=0A=
+<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td style=3D"color:firebrick">TELERADIOPACE 1 DIG L;8286 (1931) v=
+ TELECOLOR  DIG  L;6696 (All 4 Reels - 1962,1964,1965,1967)</td>=0D=0A=
+<td style=3D"color:firebrick">32%</td>=0D=0A<td></td><td></td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td style=3D"color:=
+firebrick">TELECOLOR  DIG  L;6696 (1964) v TESTSOSP_BRESCIA TELEN=
+ORD;9913 (9224)</td>=0D=0A<td style=3D"color:firebrick">31%</td>=0D=0A=
+<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td style=3D"color:firebrick">TELECOLOR  DIG  L;6696 (1962) v TES=
+TSOSP_BRESCIA TELENORD;9913 (9224)</td>=0D=0A<td style=3D"color:f=
+irebrick">31%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr st=
+yle=3D"font-size:100%">=0D=0A<td>TELECOLOR  DIG  L;6696 (All 4 Re=
+els - 1962,1964,1965,1967) v TELE ONE DIG  L;8344 (All 4 Reels - =
+3321,3324,3325,3327)</td>=0D=0A<td>28 - 31%</td>=0D=0A<td></td><t=
+d></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td st=
+yle=3D"color:firebrick">TELERADIOPACE 1 DIG L;8286 (1934) v TELEC=
+OLOR  DIG  L;6696 (All 4 Reels - 1962,1964,1965,1967)</td>=0D=0A<=
+td style=3D"color:firebrick">31%</td>=0D=0A<td></td><td></td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td style=3D"color:=
+firebrick">TELECOLOR  DIG  L;6696 (1964) v TELE ONE DIG  L;8344 (=
+3323)</td>=0D=0A<td style=3D"color:firebrick">30%</td>=0D=0A<td><=
+/td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td style=3D"color:firebrick">TELECOLOR  DIG  L;6696 (1962) v TEL=
+E ONE DIG  L;8344 (3323)</td>=0D=0A<td style=3D"color:firebrick">=
+30%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"fon=
+t-size:100%">=0D=0A<td style=3D"color:firebrick">TELECOLOR  DIG  =
+L;6696 (1962) v VR VIDEOREGIONE (SICILIA) DIG  L;6747 (2472)</td>=
+=0D=0A<td style=3D"color:firebrick">24%</td>=0D=0A<td></td><td></=
+td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td>TELECO=
+LOR  DIG  L;6696 (All 4 Reels - 1962,1964,1965,1967) v VR VIDEORE=
+GIONE (SICILIA) DIG  L;6747 (All 4 Reels - 2473,2474,2475,2477)</=
+td>=0D=0A<td>24%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr=
+ style=3D"font-size:100%">=0D=0A<td style=3D"color:firebrick">TEL=
+ECOLOR  DIG  L;6696 (1964) v VR VIDEOREGIONE (SICILIA) DIG  L;674=
+7 (2472)</td>=0D=0A<td style=3D"color:firebrick">23%</td>=0D=0A<t=
+d></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bgc=
+olor=3D"DarkGray">=0D=0A<td colspan=3D4><b>TELECOSTA SMERALDA DIG=
+  L;6581</b> - Local: 2 - Remote: 2 - Total: 4</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td><b>External</b></td>=0D=0A=
+<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A=
+<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-si=
+ze:100%">=0D=0A<td></td><td></td>=0D=0A<td>TELECOSTA SMERALDA DIG=
+  L;6581 (1984) v TELECOSTA SMERALDA DIG  L;6581 (1986)<br>Probab=
+le cause is no audio from reel(s) 1986 during the exception perio=
+d</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:10=
+0%">=0D=0A<td></td><td></td>=0D=0A<td>TELECOSTA SMERALDA DIG  L;6=
+581 (1983) v TELECOSTA SMERALDA DIG  L;6581 (1986)<br>Probable ca=
+use is no audio from reel(s) 1986 during the exception period</td=
+>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" b=
+gcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>TELECUPOLE DIG  L;66=
+01</b> - Local: 1 - Remote: 3 - Total: 4</td>=0D=0A</tr>=0D=0A<tr=
+ style=3D"font-size:100%">=0D=0A<td><b>External</b></td>=0D=0A<td=
+><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<td=
+><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:=
+100%">=0D=0A<td></td><td></td>=0D=0A<td>TELECUPOLE DIG  L;6601 (6=
+54) v TELECUPOLE DIG  L;6601 (657)<br>Probable cause is no audio =
+from reel(s) 657 during the exception period</td>=0D=0A<td>0%</td=
+>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td=
+></td>=0D=0A<td>TELECUPOLE DIG  L;6601 (653) v TELECUPOLE DIG  L;=
+6601 (657)<br>Probable cause is no audio from reel(s) 657 during =
+the exception period</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr st=
+yle=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>TELECUPO=
+LE DIG  L;6601 (655) v TELECUPOLE DIG  L;6601 (657)<br>Probable c=
+ause is no audio from reel(s) 657 during the exception period</td=
+>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" b=
+gcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>TELEISCHIA DIG L;831=
+8</b> - Local: 3 - Remote: 1 - Total: 4</td>=0D=0A</tr>=0D=0A<tr =
+style=3D"font-size:100%">=0D=0A<td><b>External</b></td>=0D=0A<td>=
+<b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<td>=
+<b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:1=
+00%">=0D=0A<td></td><td></td>=0D=0A<td style=3D"color:firebrick">=
+TELEISCHIA DIG L;8318 (2517) v TELEISCHIA DIG L;8318 (All Other 3=
+ Reels -=202510,2511,2512)</td>=0D=0A<td style=3D"color:firebrick=
+">65 - 74%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td></td><td></td>=0D=0A<td style=3D"color:firebrick">TELEISCHIA =
+DIG L;8318 (2512) v TELEISCHIA DIG L;8318 (2510)</td>=0D=0A<td st=
+yle=3D"color:firebrick">76%</td>=0D=0A</tr>=0D=0A<tr style=3D"fon=
+t-size:100%">=0D=0A<td></td><td></td>=0D=0A<td style=3D"color:fir=
+ebrick">TELEISCHIA DIG L;8318 (2512) v TELEISCHIA DIG L;8318 (251=
+1)</td>=0D=0A<td style=3D"color:firebrick">85%</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td st=
+yle=3D"color:firebrick">TELEISCHIA DIG L;8318 (2511) v TELEISCHIA=
+ DIG L;8318 (2510)</td>=0D=0A<td style=3D"color:firebrick">86%</t=
+d>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D"DarkGr=
+ay">=0D=0A<td colspan=3D4><b>TELELIBERTA' DIG  L;6932</b> - Local=
+: 3 - Remote: 2 - Total: 5</td>=0D=0A</tr>=0D=0A<tr style=3D"font=
+-size:100%">=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp Matc=
+h %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match % On=
+ly</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<t=
+d></td><td></td>=0D=0A<td style=3D"color:firebrick">TELELIBERTA' =
+DIG  L;6932 (3224) v TELELIBERTA' DIG  L;6932 (3227)</td>=0D=0A<t=
+d style=3D"color:firebrick">21%</td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td style=3D"color=
+:firebrick">TELELIBERTA' DIG  L;6932 (3223) v TELELIBERTA' DIG  L=
+;6932 (3227)</td>=0D=0A<td style=3D"color:firebrick">22%</td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A=
+<td colspan=3D4><b>TELEMAX DIG L;6697</b> - Local: 2 - Remote: 3 =
+- Total: 5</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td><b>External</b></td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A=
+<td><b>Internal</b></td>=0D=0A<td><b>Match % Only</b></td>=0D=0A<=
+/tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td>TELEMAX DIG L;6697 (3152) v TELEMAX DIG L;6697 (3154)<br>Prob=
+able cause is no audio from reel(s) 3154 during the exception per=
+iod</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:=
+100%">=0D=0A<td></td><td></td>=0D=0A<td>TELEMAX DIG L;6697 (3152)=
+ v TELEMAX DIG L;6697 (3155)<br>Probable cause is no audio from r=
+eel(s) 3155 during the exception period</td>=0D=0A<td>0%</td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td>TELEMAX DIG L;6697 (3151) v TELEMAX DIG L;6697 (3154)<br>Prob=
+able cause is no audio from reel(s) 3154 during the exception per=
+iod</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:=
+100%">=0D=0A<td></td><td></td>=0D=0A<td>TELEMAX DIG L;6697 (3151)=
+ v TELEMAX DIG L;6697 (3155)<br>Probable cause is no audio from r=
+eel(s) 3155 during the exception period</td>=0D=0A<td>0%</td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A=
+<td colspan=3D4><b>TELEMOLISE DIG  L;7143</b> - Local: 2 - Remote=
+: 1 - Total: 3</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=
+=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp Match %</b></td>=
+=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match % Only</b></td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td>TELEMOLISE DIG  L;7143 (2754) v TELEMOLISE DIG  L;7143 (2756)=
+<br>Probable cause is no audio from reel(s) 2756 during the excep=
+tion period</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"fo=
+nt-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>TELEN=
+ORD DIG  L;6592</b> - Local: 1 - Remote: 3 - Total: 4</td>=0D=0A<=
+/tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>External</b><=
+/td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b><=
+/td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>TELENORD DIG  =
+L;6592 (2112) v TELENORD DIG  L;6592 (2113)<br>Probable cause is =
+no audio from reel(s) 2113 during the exception period</td>=0D=0A=
+<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<t=
+d></td><td></td>=0D=0A<td>TELENORD DIG  L;6592 (2113) v TELENORD =
+DIG  L;6592 (2111)<br>Probable cause is no audio from reel(s) 211=
+3 during the exception period</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>TE=
+LENORD DIG  L;6592 (2112) v TELENORD DIG  L;6592 (2114)</td>=0D=0A=
+<td>94%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=
+=3D"DarkGray">=0D=0A<td colspan=3D4><b>TELENOVA DIG  L;6528</b> -=
+ Local: 2 - Remote: 2 - Total: 4</td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp=
+ Match %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match=
+ % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td>TELENOVA DIG  L;6528 (All 4 Reels - 601,603,604,607) v TVA VI=
+CENZA CI SAT L;6512 (All 3 Reels - 2921,2922,2923)</td>=0D=0A<td>=
+11%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"fon=
+t-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>TELEPA=
+CE DIG L;7881</b> - Local: 2 - Remote: 2 - Total: 4</td>=0D=0A</t=
+r>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>External</b></t=
+d>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b></t=
+d>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td>TELEPACE DIG L;7881 (All 4 Reels - 900=
+2,9003,9004,9007) v TGS TELEGIORNALE DI SICILIA DIG  L;6614 (All =
+4 Reels - 2003,2004,2005,2007)</td>=0D=0A<td>33 - 35%</td>=0D=0A<=
+td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td style=3D"color:firebrick">TELEPACE DIG L;7881 (9003) v TGS TE=
+LEGIORNALE DI SICILIA DIG  L;6614 (2002)</td>=0D=0A<td style=3D"c=
+olor:firebrick">34%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td style=3D"color:firebrick">=
+TELEPACE DIG L;7881 (9003) v TRM T.R.MEDITERRANEA DIG  L;6684 (23=
+42)</td>=0D=0A<td style=3D"color:firebrick">34%</td>=0D=0A<td></t=
+d><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<t=
+d style=3D"color:firebrick">TELEPACE DIG L;7881 (9003) v TELE ONE=
+ DIG  L;8344 (3323)</td>=0D=0A<td style=3D"color:firebrick">34%</=
+td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-siz=
+e:100%">=0D=0A<td>TELEPACE DIG L;7881 (All 4 Reels - 9002,9003,90=
+04,9007) v TRM T.R.MEDITERRANEA DIG  L;6684 (All 3 Reels - 2341,2=
+345,2347)</td>=0D=0A<td>34%</td>=0D=0A<td></td><td></td>=0D=0A</t=
+r>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td>TELEPACE DIG L;788=
+1 (All 4 Reels - 9002,9003,9004,9007) v TELE ONE DIG  L;8344 (All=
+ 4 Reels - 3321,3324,3325,3327)</td>=0D=0A<td>30 - 34%</td>=0D=0A=
+<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td>TELEPACE DIG L;7881 (All 4 Reels - 9002,9003,9004,9007) v SES=
+TARETE (Sicilia) DIG L;7690 (All 4 Reels - 3333,3334,3335,3337)</=
+td>=0D=0A<td>31 - 34%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td style=3D"color:firebrick">=
+TELEPACE DIG L;7881 (9004) v TGS TELEGIORNALE DI SICILIA DIG  L;6=
+614 (2002)</td>=0D=0A<td style=3D"color:firebrick">33%</td>=0D=0A=
+<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td style=3D"color:firebrick">TELEPACE DIG L;7881 (9004) v TRM T.=
+R.MEDITERRANEA DIG  L;6684 (2342)</td>=0D=0A<td style=3D"color:fi=
+rebrick">33%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr sty=
+le=3D"font-size:100%">=0D=0A<td>TELEPACE DIG L;7881 (All 4 Reels =
+- 9002,9003,9004,9007) v ANTENNA SICILIA DIG L;6704 (All 4 Reels =
+- 1341,1344,1345,1347)</td>=0D=0A<td>31 - 33%</td>=0D=0A<td></td>=
+<td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td>=
+TELEPACE DIG L;7881 (All 4 Reels - 9002,9003,9004,9007) v TELECOL=
+OR  DIG  L;6696 (All 4 Reels - 1962,1964,1965,1967)</td>=0D=0A<td=
+>31 - 33%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td style=3D"color:firebrick">TELEPACE DIG=
+ L;7881 (9003) v TELECOLOR  DIG  L;6696 (1961)</td>=0D=0A<td styl=
+e=3D"color:firebrick">32%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=
+=0D=0A<tr style=3D"font-size:100%">=0D=0A<td style=3D"color:fireb=
+rick">TELEPACE DIG L;7881 (9004) v TELE ONE DIG  L;8344 (3323)</t=
+d>=0D=0A<td style=3D"color:firebrick">32%</td>=0D=0A<td></td><td>=
+</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td styl=
+e=3D"color:firebrick">TELEPACE DIG L;7881 (9004) v TELECOLOR  DIG=
+  L;6696 (1961)</td>=0D=0A<td style=3D"color:firebrick">31%</td>=0D=0A=
+<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" b=
+gcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>TELEQUATTRO DIG  L;6=
+682</b> - Local: 2 - Remote: 2 - Total: 4</td>=0D=0A</tr>=0D=0A<t=
+r style=3D"font-size:100%">=0D=0A<td><b>External</b></td>=0D=0A<t=
+d><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<t=
+d><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size=
+:100%">=0D=0A<td></td><td></td>=0D=0A<td>TELEQUATTRO DIG  L;6682 =
+(1644) v TELEQUATTRO DIG  L;6682 (All Other 3 Reels - 1641,1642,1=
+643)</td>=0D=0A<td>92%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-siz=
+e:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>TELERADIOPA=
+CE 1 DIG L;8286</b> - Local: 1 - Remote: 2 - Total: 3</td>=0D=0A<=
+/tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>External</b><=
+/td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b><=
+/td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td style=3D"color:firebrick">TELERADIOPAC=
+E 1 DIG L;8286 (1931) v ANTENNA SICILIA DIG L;6704 (All 4 Reels -=
+ 1341,1344,1345,1347)</td>=0D=0A<td style=3D"color:firebrick">33%=
+</td>=0D=0A<td>TELERADIOPACE 1 DIG L;8286 (1933) v TELERADIOPACE =
+1 DIG L;8286 (1931)<br>Probable cause is no audio from reel(s) 19=
+33 during the exception period</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td style=3D"color:firebrick">=
+TELERADIOPACE 1 DIG L;8286 (1931) v TGS TELEGIORNALE DI SICILIA D=
+IG  L;6614 (All 4 Reels - 2003,2004,2005,2007)</td>=0D=0A<td styl=
+e=3D"color:firebrick">33%</td>=0D=0A<td>TELERADIOPACE 1 DIG L;828=
+6 (1933) v TELERADIOPACE 1 DIG L;8286 (1932)<br>Probable cause is=
+ no audio from reel(s) 1933 during the exception period</td>=0D=0A=
+<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<t=
+d style=3D"color:firebrick">TELERADIOPACE 1 DIG L;8286 (1931) v T=
+RM T.R.MEDITERRANEA DIG  L;6684 (All 3 Reels - 2341,2345,2347)</t=
+d>=0D=0A<td style=3D"color:firebrick">33%</td>=0D=0A<td>TELERADIO=
+PACE 1 DIG L;8286 (1934) v TELERADIOPACE 1 DIG L;8286 (1932)<br>P=
+robable cause is no audio from reel(s) 1932 during the exception =
+period</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-si=
+ze:100%">=0D=0A<td style=3D"color:firebrick">TELERADIOPACE 1 DIG =
+L;8286 (1931) v SESTARETE (Sicilia) DIG L;7690 (All 4 Reels - 333=
+3,3334,3335,3337)</td>=0D=0A<td style=3D"color:firebrick">33%</td=
+>=0D=0A<td>TELERADIOPACE 1 DIG L;8286 (1934) v TELERADIOPACE 1 DI=
+G L;8286 (1931)</td>=0D=0A<td>94%</td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td style=3D"color:firebrick">TELERADIOPAC=
+E 1 DIG L;8286 (1934) v TGS TELEGIORNALE DI SICILIA DIG  L;6614 (=
+2002)</td>=0D=0A<td style=3D"color:firebrick">32%</td>=0D=0A<td><=
+/td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td style=3D"color:firebrick">TELERADIOPACE 1 DIG L;8286 (1934) v=
+ TRM T.R.MEDITERRANEA DIG  L;6684 (2342)</td>=0D=0A<td style=3D"c=
+olor:firebrick">32%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td style=3D"color:firebrick">=
+TELERADIOPACE 1 DIG L;8286 (1934) v TESTSOSP_BRESCIA TELENORD;991=
+3 (9224)</td>=0D=0A<td style=3D"color:firebrick">32%</td>=0D=0A<t=
+d></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td style=3D"color:firebrick">TELERADIOPACE 1 DIG L;8286 (1931) v=
+ TELECOLOR  DIG  L;6696 (All 4 Reels - 1962,1964,1965,1967)</td>=0D=0A=
+<td style=3D"color:firebrick">32%</td>=0D=0A<td></td><td></td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td style=3D"color:=
+firebrick">TELERADIOPACE 1 DIG L;8286 (1934) v TGS TELEGIORNALE D=
+I SICILIA DIG  L;6614 (All 4 Reels - 2003,2004,2005,2007)</td>=0D=0A=
+<td style=3D"color:firebrick">32%</td>=0D=0A<td></td><td></td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td style=3D"color:=
+firebrick">TELERADIOPACE 1 DIG L;8286 (1934) v TRM T.R.MEDITERRAN=
+EA DIG  L;6684 (All 3 Reels - 2341,2345,2347)</td>=0D=0A<td style=
+=3D"color:firebrick">32%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td style=3D"color:firebrick">=
+TELERADIOPACE 1 DIG L;8286 (1934) v TELECOLOR  DIG  L;6696 (1961)=
+</td>=0D=0A<td style=3D"color:firebrick">31%</td>=0D=0A<td></td><=
+td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td s=
+tyle=3D"color:firebrick">TELERADIOPACE 1 DIG L;8286 (1934) v ANTE=
+NNA SICILIA DIG L;6704 (All 4 Reels - 1341,1344,1345,1347)</td>=0D=0A=
+<td style=3D"color:firebrick">31%</td>=0D=0A<td></td><td></td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td style=3D"color:=
+firebrick">TELERADIOPACE 1 DIG L;8286 (1934) v TELECOLOR  DIG  L;=
+6696 (All 4 Reels - 1962,1964,1965,1967)</td>=0D=0A<td style=3D"c=
+olor:firebrick">31%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td style=3D"color:firebrick">=
+TELERADIOPACE 1 DIG L;8286 (1934) v SESTARETE (Sicilia) DIG L;769=
+0 (All 4 Reels - 3333,3334,3335,3337)</td>=0D=0A<td style=3D"colo=
+r:firebrick">31%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr=
+ style=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D=
+4><b>TELERADIOPACE 1 SAT CI L;8286</b> - Local: 2 - Remote: 0 - T=
+otal: 2</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<=
+td><b>External</b></td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<=
+td><b>Internal</b></td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</=
+tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td>TELERADIOPACE 1 S=
+AT CI L;8286 (Both Reels - 4321,4323) v ANTENNA SICILIA DIG L;670=
+4 (All 4 Reels - 1341,1344,1345,1347)</td>=0D=0A<td>33%</td>=0D=0A=
+<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td>TELERADIOPACE 1 SAT CI L;8286 (Both Reels - 4321,4323) v TELE=
+COLOR  DIG  L;6696 (All 4 Reels - 1962,1964,1965,1967)</td>=0D=0A=
+<td>33%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td>TELERADIOPACE 1 SAT CI L;8286 (Both Re=
+els - 4321,4323) v TGS TELEGIORNALE DI SICILIA DIG  L;6614 (All 4=
+ Reels - 2003,2004,2005,2007)</td>=0D=0A<td>33%</td>=0D=0A<td></t=
+d><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<t=
+d>TELERADIOPACE 1 SAT CI L;8286 (Both Reels - 4321,4323) v SESTAR=
+ETE (Sicilia) DIG L;7690 (All 4 Reels - 3333,3334,3335,3337)</td>=
+=0D=0A<td>33%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr st=
+yle=3D"font-size:100%">=0D=0A<td>TELERADIOPACE 1 SAT CI L;8286 (B=
+oth Reels - 4321,4323) v TRM T.R.MEDITERRANEA DIG  L;6684 (All 3 =
+Reels - 2341,2345,2347)</td>=0D=0A<td>32%</td>=0D=0A<td></td><td>=
+</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td>TELE=
+RADIOPACE 1 SAT CI L;8286 (Both Reels - 4321,4323) v TELE ONE DIG=
+  L;8344 (All 4 Reels - 3321,3324,3325,3327)</td>=0D=0A<td>28 - 3=
+0%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font=
+-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>TELEREG=
+GIO DIG  L;6772</b> - Local: 2 - Remote: 2 - Total: 4</td>=0D=0A<=
+/tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>External</b><=
+/td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b><=
+/td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td style=3D"color=
+:firebrick">TELEREGGIO DIG  L;6772 (842) v TELEREGGIO DIG  L;6772=
+ (844)</td>=0D=0A<td style=3D"color:firebrick">20%</td>=0D=0A</tr=
+>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td style=3D"color:firebrick">TELEREGGIO DIG  L;6772 (843) v TELE=
+REGGIO DIG  L;6772 (844)</td>=0D=0A<td style=3D"color:firebrick">=
+20%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D"=
+DarkGray">=0D=0A<td colspan=3D4><b>TELEREGIONE COLOR DIG  L;7033<=
+/b> - Local: 2 - Remote: 2 - Total: 4</td>=0D=0A</tr>=0D=0A<tr st=
+yle=3D"font-size:100%">=0D=0A<td><b>External</b></td>=0D=0A<td><b=
+>Unexp Match %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b=
+>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100=
+%">=0D=0A<td>TELEREGIONE COLOR DIG  L;7033 (3914) v TESTSOSP_7 GO=
+LD SUD (PUGLIA) DIG;9913 (1261)</td>=0D=0A<td>7%</td>=0D=0A<td></=
+td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<=
+td>TELEREGIONE COLOR DIG  L;7033 (3912) v TESTSOSP_7 GOLD SUD (PU=
+GLIA) DIG;9913 (1261)</td>=0D=0A<td>6%</td>=0D=0A<td></td><td></t=
+d>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D"DarkGr=
+ay">=0D=0A<td colspan=3D4><b>TELEREGIONE LIVE DIG L;9517</b> - Lo=
+cal: 3 - Remote: 1 - Total: 4</td>=0D=0A</tr>=0D=0A<tr style=3D"f=
+ont-size:100%">=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp M=
+atch %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match %=
+ Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td style=3D"color:firebrick">TELEREGIONE LIVE DIG L;9517 (3103) =
+v TESTSOSP_BRESCIA TELENORD;9913 (9224)</td>=0D=0A<td style=3D"co=
+lor:firebrick">23%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<=
+tr style=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspa=
+n=3D4><b>TELEROMAGNA DIG  L;6887</b> - Local: 2 - Remote: 2 - Tot=
+al: 4</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td=
+><b>External</b></td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td=
+><b>Internal</b></td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr=
+>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td>TELEROMAGNA DIG  L;6887 (3394) v TELEROMAGNA DIG  L;6887 (339=
+2)</td>=0D=0A<td>94%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:=
+100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>TELESTENSE DI=
+G L;6536</b> - Local: 1 - Remote: 3 - Total: 4</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td><b>External</b></td>=0D=0A=
+<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A=
+<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-si=
+ze:100%">=0D=0A<td style=3D"color:firebrick">TELESTENSE DIG L;653=
+6 (1944) v NOPROD_TELESANTERNO DIG L;9912 (794)</td>=0D=0A<td sty=
+le=3D"color:firebrick">11%</td>=0D=0A<td>TELESTENSE DIG L;6536 (1=
+944) v TELESTENSE DIG L;6536 (1948)<br>Probable cause is no audio=
+ from reel(s) 1948 during the exception period</td>=0D=0A<td>0%</=
+td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td style=3D=
+"color:firebrick">TELESTENSE DIG L;6536 (1942) v NOPROD_TELESANTE=
+RNO DIG L;9912 (794)</td>=0D=0A<td style=3D"color:firebrick">11%<=
+/td>=0D=0A<td>TELESTENSE DIG L;6536 (1942) v TELESTENSE DIG L;653=
+6 (1948)<br>Probable cause is no audio from reel(s) 1948 during t=
+he exception period</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr sty=
+le=3D"font-size:100%">=0D=0A<td style=3D"color:firebrick">TELESTE=
+NSE DIG L;6536 (1943) v NOPROD_TELESANTERNO DIG L;9912 (794)</td>=
+=0D=0A<td style=3D"color:firebrick">11%</td>=0D=0A<td>TELESTENSE =
+DIG L;6536 (1943) v TELESTENSE DIG L;6536 (1948)<br>Probable caus=
+e is no audio from reel(s) 1948 during the exception period</td>=0D=0A=
+<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D=
+"DarkGray">=0D=0A<td colspan=3D4><b>TELESVEVA DIG  L;6707</b> - L=
+ocal: 2 - Remote: 2 - Total: 4</td>=0D=0A</tr>=0D=0A<tr style=3D"=
+font-size:100%">=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp =
+Match %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match =
+% Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td></td><td></td>=0D=0A<td>TELESVEVA DIG  L;6707 (3974) v TELESV=
+EVA DIG  L;6707 (3973)</td>=0D=0A<td>90%</td>=0D=0A</tr>=0D=0A<tr=
+ style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>TELES=
+VEVA DIG  L;6707 (3974) v TELESVEVA DIG  L;6707 (3978)</td>=0D=0A=
+<td>90%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<=
+td></td><td></td>=0D=0A<td>TELESVEVA DIG  L;6707 (3974) v TELESVE=
+VA DIG  L;6707 (All Other 3 Reels - 3971,3975,3976)</td>=0D=0A<td=
+>91%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D=
+"DarkGray">=0D=0A<td colspan=3D4><b>TELETRURIA DIG  L;6945</b> - =
+Local: 3 - Remote: 1 - Total: 4</td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp=
+ Match %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match=
+ % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td></td><td></td>=0D=0A<td>TELETRURIA DIG  L;6945 (3144) v TELET=
+RURIA DIG  L;6945 (3145)<br>Probable cause is no audio from reel(=
+s) 3145 during the exception period</td>=0D=0A<td>74%</td>=0D=0A<=
+/tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A=
+<td colspan=3D4><b>TELEUNIVERSO DIG  L;6873</b> - Local: 1 - Remo=
+te: 3 - Total: 4</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%=
+">=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp Match %</b></t=
+d>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match % Only</b></td=
+>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td=
+></td>=0D=0A<td>TELEUNIVERSO DIG  L;6873 (1914) v TELEUNIVERSO DI=
+G  L;6873 (1915)</td>=0D=0A<td>93%</td>=0D=0A</tr>=0D=0A<tr style=
+=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>TELEUNIVERS=
+O DIG  L;6873 (1914) v TELEUNIVERSO DIG  L;6873 (1912)</td>=0D=0A=
+<td>94%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<=
+td></td><td></td>=0D=0A<td>TELEUNIVERSO DIG  L;6873 (1918) v TELE=
+UNIVERSO DIG  L;6873 (1914)</td>=0D=0A<td>94%</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colsp=
+an=3D4><b>TELEVOMERO DIG  L;6709</b> - Local: 3 - Remote: 1 - Tot=
+al: 4</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td=
+><b>External</b></td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td=
+><b>Internal</b></td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr=
+>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td>TELEVOMERO DIG  L;6709 (2293) v TELEVOMERO DIG  L;6709 (2294)=
+<br>Probable cause is no audio from reel(s) 2294 during the excep=
+tion period</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"fo=
+nt-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>TELEVOMERO DIG  L=
+;6709 (2293) v TELEVOMERO DIG  L;6709 (2295)<br>Probable cause is=
+ no audio from reel(s) 2295 during the exception period</td>=0D=0A=
+<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<t=
+d></td><td></td>=0D=0A<td>TELEVOMERO DIG  L;6709 (2292) v TELEVOM=
+ERO DIG  L;6709 (2298)</td>=0D=0A<td>90%</td>=0D=0A</tr>=0D=0A<tr=
+ style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>TELEV=
+OMERO DIG  L;6709 (2293) v TELEVOMERO DIG  L;6709 (2297)</td>=0D=0A=
+<td>91%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<=
+td></td><td></td>=0D=0A<td>TELEVOMERO DIG  L;6709 (2298) v TELEVO=
+MERO DIG  L;6709 (2293)</td>=0D=0A<td>92%</td>=0D=0A</tr>=0D=0A<t=
+r style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>TELE=
+VOMERO DIG  L;6709 (2292) v TELEVOMERO DIG  L;6709 (2293)</td>=0D=0A=
+<td>93%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=
+=3D"DarkGray">=0D=0A<td colspan=3D4><b>TGCOM 24 DIG/SAT/TSAT  N;7=
+999</b> - Local: 4 - Remote: 1 - Total: 5</td>=0D=0A</tr>=0D=0A<t=
+r style=3D"font-size:100%">=0D=0A<td><b>External</b></td>=0D=0A<t=
+d><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<t=
+d><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size=
+:100%">=0D=0A<td style=3D"color:firebrick">TGCOM 24 DIG/SAT/TSAT =
+ N;7999 (1125) v RETE 4 DIG/PSAT/TSAT  N;0006 (61)</td>=0D=0A<td =
+style=3D"color:firebrick">14%</td>=0D=0A<td></td><td></td>=0D=0A<=
+/tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td style=3D"color:f=
+irebrick">TGCOM 24 DIG/SAT/TSAT  N;7999 (1125) v RETE 4 DIG/PSAT/=
+TSAT  N;0006 (63)</td>=0D=0A<td style=3D"color:firebrick">14%</td=
+>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:=
+100%">=0D=0A<td style=3D"color:firebrick">TGCOM 24 DIG/SAT/TSAT  =
+N;7999 (1125) v RETE 4 DIG/PSAT/TSAT  N;0006 (66)</td>=0D=0A<td s=
+tyle=3D"color:firebrick">14%</td>=0D=0A<td></td><td></td>=0D=0A</=
+tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td>TGCOM 24 DIG/SAT/=
+TSAT  N;7999 (All 5 Reels - 1121,1123,1125,1127,1128) v RETE 4 DI=
+G/PSAT/TSAT  N;0006 (All 5 Reels - 60,62,65,67,68)</td>=0D=0A<td>=
+14%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"fon=
+t-size:100%">=0D=0A<td>TGCOM 24 DIG/SAT/TSAT  N;7999 (All 5 Reels=
+ - 1121,1123,1125,1127,1128) v RETE 4 DOUBLE DIG/TSAT N;9098 (Bot=
+h Reels - 4271,4272)</td>=0D=0A<td>14%</td>=0D=0A<td></td><td></t=
+d>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D"DarkGr=
+ay">=0D=0A<td colspan=3D4><b>TGS TELEGIORNALE DI SICILIA DIG  L;6=
+614</b> - Local: 2 - Remote: 2 - Total: 4</td>=0D=0A</tr>=0D=0A<t=
+r style=3D"font-size:100%">=0D=0A<td><b>External</b></td>=0D=0A<t=
+d><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<t=
+d><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size=
+:100%">=0D=0A<td>TGS TELEGIORNALE DI SICILIA DIG  L;6614 (All 4 R=
+eels - 2003,2004,2005,2007) v TELEPACE DIG L;7881 (All 4 Reels - =
+9002,9003,9004,9007)</td>=0D=0A<td>33 - 35%</td>=0D=0A<td></td><t=
+d></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td st=
+yle=3D"color:firebrick">TGS TELEGIORNALE DI SICILIA DIG  L;6614 (=
+2004) v TELEPACE DIG L;7881 (9006)</td>=0D=0A<td style=3D"color:f=
+irebrick">34%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr st=
+yle=3D"font-size:100%">=0D=0A<td style=3D"color:firebrick">TGS TE=
+LEGIORNALE DI SICILIA DIG  L;6614 (2003) v TRM T.R.MEDITERRANEA D=
+IG  L;6684 (2342)</td>=0D=0A<td style=3D"color:firebrick">34%</td=
+>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:=
+100%">=0D=0A<td style=3D"color:firebrick">TGS TELEGIORNALE DI SIC=
+ILIA DIG  L;6614 (2003) v TELEPACE DIG L;7881 (9006)</td>=0D=0A<t=
+d style=3D"color:firebrick">34%</td>=0D=0A<td></td><td></td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td style=3D"color:=
+firebrick">TGS TELEGIORNALE DI SICILIA DIG  L;6614 (2004) v TRM T=
+.R.MEDITERRANEA DIG  L;6684 (2342)</td>=0D=0A<td style=3D"color:f=
+irebrick">34%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr st=
+yle=3D"font-size:100%">=0D=0A<td>TGS TELEGIORNALE DI SICILIA DIG =
+ L;6614 (All 4 Reels - 2003,2004,2005,2007) v TRM T.R.MEDITERRANE=
+A DIG  L;6684 (All 3 Reels - 2341,2345,2347)</td>=0D=0A<td>34%</t=
+d>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size=
+:100%">=0D=0A<td>TGS TELEGIORNALE DI SICILIA DIG  L;6614 (All 4 R=
+eels - 2003,2004,2005,2007) v TELECOLOR  DIG  L;6696 (All 4 Reels=
+ - 1962,1964,1965,1967)</td>=0D=0A<td>31 - 33%</td>=0D=0A<td></td=
+><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td=
+>TGS TELEGIORNALE DI SICILIA DIG  L;6614 (All 4 Reels - 2003,2004=
+,2005,2007) v ANTENNA SICILIA DIG L;6704 (All 4 Reels - 1341,1344=
+,1345,1347)</td>=0D=0A<td>31 - 33%</td>=0D=0A<td></td><td></td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td style=3D"color:=
+firebrick">TGS TELEGIORNALE DI SICILIA DIG  L;6614 (2004) v TESTS=
+OSP_BRESCIA TELENORD;9913 (9224)</td>=0D=0A<td style=3D"color:fir=
+ebrick">33%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr styl=
+e=3D"font-size:100%">=0D=0A<td style=3D"color:firebrick">TELERADI=
+OPACE 1 DIG L;8286 (1931) v TGS TELEGIORNALE DI SICILIA DIG  L;66=
+14 (All 4 Reels - 2003,2004,2005,2007)</td>=0D=0A<td style=3D"col=
+or:firebrick">33%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<t=
+r style=3D"font-size:100%">=0D=0A<td>TGS TELEGIORNALE DI SICILIA =
+DIG  L;6614 (All 4 Reels - 2003,2004,2005,2007) v SESTARETE (Sici=
+lia) DIG L;7690 (All 4 Reels - 3333,3334,3335,3337)</td>=0D=0A<td=
+>31 - 33%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td>TGS TELEGIORNALE DI SICILIA DIG  L;661=
+4 (All 4 Reels - 2003,2004,2005,2007) v TELERADIOPACE 1 SAT CI L;=
+8286 (Both Reels - 4321,4323)</td>=0D=0A<td>33%</td>=0D=0A<td></t=
+d><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<t=
+d style=3D"color:firebrick">TGS TELEGIORNALE DI SICILIA DIG  L;66=
+14 (2003) v TELE ONE DIG  L;8344 (3323)</td>=0D=0A<td style=3D"co=
+lor:firebrick">33%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<=
+tr style=3D"font-size:100%">=0D=0A<td>TGS TELEGIORNALE DI SICILIA=
+ DIG  L;6614 (All 4 Reels - 2003,2004,2005,2007) v TELE ONE DIG  =
+L;8344 (All 4 Reels - 3321,3324,3325,3327)</td>=0D=0A<td>30 - 33%=
+</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-s=
+ize:100%">=0D=0A<td style=3D"color:firebrick">TGS TELEGIORNALE DI=
+ SICILIA DIG  L;6614 (2003) v TELECOLOR  DIG  L;6696 (1961)</td>=0D=0A=
+<td style=3D"color:firebrick">32%</td>=0D=0A<td></td><td></td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td style=3D"color:=
+firebrick">TGS TELEGIORNALE DI SICILIA DIG  L;6614 (2004) v TELEC=
+OLOR  DIG  L;6696 (1961)</td>=0D=0A<td style=3D"color:firebrick">=
+32%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"fon=
+t-size:100%">=0D=0A<td style=3D"color:firebrick">TGS TELEGIORNALE=
+ DI SICILIA DIG  L;6614 (2003) v TESTSOSP_BRESCIA TELENORD;9913 (=
+9224)</td>=0D=0A<td style=3D"color:firebrick">32%</td>=0D=0A<td><=
+/td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td style=3D"color:firebrick">TGS TELEGIORNALE DI SICILIA DIG  L;=
+6614 (2004) v TELE ONE DIG  L;8344 (3323)</td>=0D=0A<td style=3D"=
+color:firebrick">32%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td style=3D"color:firebrick">=
+TELERADIOPACE 1 DIG L;8286 (1934) v TGS TELEGIORNALE DI SICILIA D=
+IG  L;6614 (All 4 Reels - 2003,2004,2005,2007)</td>=0D=0A<td styl=
+e=3D"color:firebrick">32%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=
+=0D=0A<tr style=3D"font-size:100%">=0D=0A<td style=3D"color:fireb=
+rick">TGS TELEGIORNALE DI SICILIA DIG  L;6614 (2004) v VR VIDEORE=
+GIONE (SICILIA) DIG  L;6747 (2472)</td>=0D=0A<td style=3D"color:f=
+irebrick">24%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr st=
+yle=3D"font-size:100%">=0D=0A<td>TGS TELEGIORNALE DI SICILIA DIG =
+ L;6614 (All 4 Reels - 2003,2004,2005,2007) v VR VIDEOREGIONE (SI=
+CILIA) DIG  L;6747 (All 4 Reels - 2473,2474,2475,2477)</td>=0D=0A=
+<td>24%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td style=3D"color:firebrick">TGS TELEGIOR=
+NALE DI SICILIA DIG  L;6614 (2003) v VR VIDEOREGIONE (SICILIA) DI=
+G  L;6747 (2472)</td>=0D=0A<td style=3D"color:firebrick">23%</td>=
+=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:1=
+00%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>TOP CALCIO 24 =
+DIG  L;7576</b> - Local: 1 - Remote: 3 - Total: 4</td>=0D=0A</tr>=
+=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>External</b></td>=
+=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b></td>=
+=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"f=
+ont-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>TOP CALCIO 24 DI=
+G  L;7576 (2553) v TOP CALCIO 24 DIG  L;7576 (2554)<br>Probable c=
+ause is no audio from reel(s) 2554 during the exception period</t=
+d>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" =
+bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>TR 118 (ex Roma ch =
+71) DIG L;9046</b> - Local: 2 - Remote: 2 - Total: 4</td>=0D=0A</=
+tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>External</b></=
+td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b></=
+td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td>TR 118 (ex Roma ch 71) DIG L;9046 (222=
+1) v TESTSOSP_GOLD TV SAT;9913 (9241)</td>=0D=0A<td>7%</td>=0D=0A=
+<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td>TR 118 (ex Roma ch 71) DIG L;9046 (2224) v TESTSOSP_GOLD TV S=
+AT;9913 (9241)</td>=0D=0A<td>7%</td>=0D=0A<td></td><td></td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A=
+<td colspan=3D4><b>TRENTINO TV (ex Trentino tv TCA) DIG  L;6651</=
+b> - Local: 2 - Remote: 2 - Total: 4</td>=0D=0A</tr>=0D=0A<tr sty=
+le=3D"font-size:100%">=0D=0A<td><b>External</b></td>=0D=0A<td><b>=
+Unexp Match %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>=
+Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%=
+">=0D=0A<td></td><td></td>=0D=0A<td>TRENTINO TV (ex Trentino tv T=
+CA) DIG  L;6651 (1834) v TRENTINO TV (ex Trentino tv TCA) DIG  L;=
+6651 (1835)<br>Probable cause is no audio from reel(s) 1835 durin=
+g the exception period</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr =
+style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>TRENTI=
+NO TV (ex Trentino tv TCA) DIG  L;6651 (1831) v TRENTINO TV (ex T=
+rentino tv TCA) DIG  L;6651 (1835)<br>Probable cause is no audio =
+from reel(s) 1835 during the exception period</td>=0D=0A<td>0%</t=
+d>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D"DarkGr=
+ay">=0D=0A<td colspan=3D4><b>TRM H24 DIG vs TRM H24 SAT</b> - Loc=
+al: 5 - Remote: 2 - Total: 7</td>=0D=0A</tr>=0D=0A<tr style=3D"fo=
+nt-size:100%">=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp Ma=
+tch %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match % =
+Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td></td><td></td>=0D=0A<td>TRM H24 DIG  L;9376 (2283) v TRM H24 =
+CI SAT/TSAT  L;9776 (2492)</td>=0D=0A<td>97%</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colsp=
+an=3D4><b>TRM T.R.MEDITERRANEA DIG  L;6684</b> - Local: 2 - Remot=
+e: 1 - Total: 3</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%"=
+>=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp Match %</b></td=
+>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match % Only</b></td>=
+=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td style=3D"=
+color:firebrick">TRM T.R.MEDITERRANEA DIG  L;6684 (2341) v TGS TE=
+LEGIORNALE DI SICILIA DIG  L;6614 (2002)</td>=0D=0A<td style=3D"c=
+olor:firebrick">34%</td>=0D=0A<td>TRM T.R.MEDITERRANEA DIG  L;668=
+4 (2341) v TRM T.R.MEDITERRANEA DIG  L;6684 (2344)<br>Probable ca=
+use is no audio from reel(s) 2344 during the exception period</td=
+>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td style=3D"color:firebrick">TRM T.R.MEDITERRANEA DIG  L;6684 (2=
+341) v TELEPACE DIG L;7881 (9006)</td>=0D=0A<td style=3D"color:fi=
+rebrick">34%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr sty=
+le=3D"font-size:100%">=0D=0A<td>TRM T.R.MEDITERRANEA DIG  L;6684 =
+(All 3 Reels - 2341,2345,2347) v TGS TELEGIORNALE DI SICILIA DIG =
+ L;6614 (All 4 Reels - 2003,2004,2005,2007)</td>=0D=0A<td>34%</td=
+>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:=
+100%">=0D=0A<td>TRM T.R.MEDITERRANEA DIG  L;6684 (All 3 Reels - 2=
+341,2345,2347) v TELEPACE DIG L;7881 (All 4 Reels - 9002,9003,900=
+4,9007)</td>=0D=0A<td>34%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=
+=0D=0A<tr style=3D"font-size:100%">=0D=0A<td>TRM T.R.MEDITERRANEA=
+ DIG  L;6684 (All 3 Reels - 2341,2345,2347) v SESTARETE (Sicilia)=
+ DIG L;7690 (All 4 Reels - 3333,3334,3335,3337)</td>=0D=0A<td>31 =
+- 33%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"f=
+ont-size:100%">=0D=0A<td style=3D"color:firebrick">TELERADIOPACE =
+1 DIG L;8286 (1931) v TRM T.R.MEDITERRANEA DIG  L;6684 (All 3 Ree=
+ls - 2341,2345,2347)</td>=0D=0A<td style=3D"color:firebrick">33%<=
+/td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-si=
+ze:100%">=0D=0A<td style=3D"color:firebrick">TRM T.R.MEDITERRANEA=
+ DIG  L;6684 (2341) v TELECOLOR  DIG  L;6696 (1961)</td>=0D=0A<td=
+ style=3D"color:firebrick">32%</td>=0D=0A<td></td><td></td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td>TRM T.R.MEDITER=
+RANEA DIG  L;6684 (All 3 Reels - 2341,2345,2347) v ANTENNA SICILI=
+A DIG L;6704 (All 4 Reels - 1341,1344,1345,1347)</td>=0D=0A<td>32=
+%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-=
+size:100%">=0D=0A<td>TRM T.R.MEDITERRANEA DIG  L;6684 (All 3 Reel=
+s - 2341,2345,2347) v TELECOLOR  DIG  L;6696 (All 4 Reels - 1962,=
+1964,1965,1967)</td>=0D=0A<td>32%</td>=0D=0A<td></td><td></td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td>TRM T.R.MEDITER=
+RANEA DIG  L;6684 (All 3 Reels - 2341,2345,2347) v TELERADIOPACE =
+1 SAT CI L;8286 (Both Reels - 4321,4323)</td>=0D=0A<td>32%</td>=0D=0A=
+<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td style=3D"color:firebrick">TELERADIOPACE 1 DIG L;8286 (1934) v=
+ TRM T.R.MEDITERRANEA DIG  L;6684 (All 3 Reels - 2341,2345,2347)<=
+/td>=0D=0A<td style=3D"color:firebrick">32%</td>=0D=0A<td></td><t=
+d></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td st=
+yle=3D"color:firebrick">TRM T.R.MEDITERRANEA DIG  L;6684 (2341) v=
+ TESTSOSP_BRESCIA TELENORD;9913 (9224)</td>=0D=0A<td style=3D"col=
+or:firebrick">31%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<t=
+r style=3D"font-size:100%">=0D=0A<td style=3D"color:firebrick">TR=
+M T.R.MEDITERRANEA DIG  L;6684 (2341) v VR VIDEOREGIONE (SICILIA)=
+ DIG  L;6747 (2472)</td>=0D=0A<td style=3D"color:firebrick">24%</=
+td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-siz=
+e:100%">=0D=0A<td>TRM T.R.MEDITERRANEA DIG  L;6684 (All 3 Reels -=
+ 2341,2345,2347) v VR VIDEOREGIONE (SICILIA) DIG  L;6747 (All 4 R=
+eels - 2473,2474,2475,2477)</td>=0D=0A<td>24%</td>=0D=0A<td></td>=
+<td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D=
+"DarkGray">=0D=0A<td colspan=3D4><b>TRSP - TELERADIO SAN PIETRO D=
+IG L;7234</b> - Local: 2 - Remote: 2 - Total: 4</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td><b>External</b></td>=0D=0A=
+<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A=
+<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-si=
+ze:100%">=0D=0A<td></td><td></td>=0D=0A<td>TRSP - TELERADIO SAN P=
+IETRO DIG L;7234 (3284) v TRSP - TELERADIO SAN PIETRO DIG L;7234 =
+(All Other 3 Reels - 3282,3283,3286)<br>Probable cause is no audi=
+o from reel(s) 3284 during the exception period</td>=0D=0A<td>80%=
+</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D"Dar=
+kGray">=0D=0A<td colspan=3D4><b>TV 2000 DIG/SAT/TSAT  N;6564</b> =
+- Local: 3 - Remote: 2 - Total: 5</td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp=
+ Match %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match=
+ % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td></td><td></td>=0D=0A<td style=3D"color:firebrick">TV 2000 DIG=
+/SAT/TSAT  N;6564 (154) v TV 2000 DIG/SAT/TSAT  N;6564 (158)</td>=
+=0D=0A<td style=3D"color:firebrick">59%</td>=0D=0A</tr>=0D=0A<tr =
+style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td style=3D=
+"color:firebrick">TV 2000 DIG/SAT/TSAT  N;6564 (155) v TV 2000 DI=
+G/SAT/TSAT  N;6564 (158)</td>=0D=0A<td style=3D"color:firebrick">=
+59%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D"=
+DarkGray">=0D=0A<td colspan=3D4><b>TV QUI DIG  L;8635</b> - Local=
+: 2 - Remote: 2 - Total: 4</td>=0D=0A</tr>=0D=0A<tr style=3D"font=
+-size:100%">=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp Matc=
+h %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match % On=
+ly</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<t=
+d></td><td></td>=0D=0A<td>TV QUI DIG  L;8635 (2243) v TV QUI DIG =
+ L;8635 (2244)<br>Probable cause is no audio from reel(s) 2244 du=
+ring the exception period</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<=
+tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>TV =
+QUI DIG  L;8635 (2245) v TV QUI DIG  L;8635 (2244)<br>Probable ca=
+use is no audio from reel(s) 2244 during the exception period</td=
+>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" b=
+gcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>TV1 (Toscana) DIG  L=
+;7177</b> - Local: 2 - Remote: 1 - Total: 3</td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td><b>External</b></td>=0D=0A=
+<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A=
+<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-si=
+ze:100%">=0D=0A<td></td><td></td>=0D=0A<td style=3D"color:firebri=
+ck">TV1 (Toscana) DIG  L;7177 (3534) v TV1 (Toscana) DIG  L;7177 =
+(3532)</td>=0D=0A<td style=3D"color:firebrick">0%</td>=0D=0A</tr>=
+=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td>TV1 (Toscana) DIG  L;7177 (3534) v TV1 (Toscana) DIG  L;7177 =
+(3536)<br>Probable cause is no audio from reel(s) 3536 during the=
+ exception period</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=
+=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b=
+>TVA DIG/SAT</b> - Local: 5 - Remote: 2 - Total: 7</td>=0D=0A</tr=
+>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>External</b></td=
+>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b></td=
+>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"=
+font-size:100%">=0D=0A<td>TVA VICENZA CI SAT L;6512 (All 3 Reels =
+- 2921,2922,2923) v TELENOVA DIG  L;6528 (All 4 Reels - 601,603,6=
+04,607)</td>=0D=0A<td>11%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=
+=0D=0A<tr style=3D"font-size:100%">=0D=0A<td>TVA VICENZA CI SAT L=
+;6512 (All 3 Reels - 2921,2922,2923) v TELE CHIARA -TV2000 DIG  L=
+;6640 (All 4 Reels - 821,823,824,828)</td>=0D=0A<td>10%</td>=0D=0A=
+<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td>TVA VICENZA CI SAT L;6512 (All 3 Reels - 2921,2922,2923) v TE=
+LEBELLUNO-DOLOMITI-SAT2000 DIG  L;7680 (All 4 Reels - 9020,9022,9=
+024,9026)</td>=0D=0A<td>10%</td>=0D=0A<td></td><td></td>=0D=0A</t=
+r>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td>TVA VICENZA CI SAT=
+ L;6512 (All 3 Reels - 2921,2922,2923) v LAZIO TV DIG L;6711 (All=
+ 4 Reels - 1681,1682,1683,1684)</td>=0D=0A<td>9%</td>=0D=0A<td></=
+td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<=
+td>TVA VICENZA CI SAT L;6512 (All 3 Reels - 2921,2922,2923) v UMB=
+RIA TV DIG  L;6736 (All 3 Reels - 2451,2452,2454)</td>=0D=0A<td>9=
+%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-=
+size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>TVL (Tos=
+cana) DIG  L;7145</b> - Local: 2 - Remote: 2 - Total: 4</td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>External</b>=
+</td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b>=
+</td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=
+=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>TVL (Toscan=
+a) DIG  L;7145 (3906) v TVL (Toscana) DIG  L;7145 (3905)<br>Proba=
+ble cause is no audio from reel(s) 3905 during the exception peri=
+od</td>=0D=0A<td>87%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:=
+100%">=0D=0A<td></td><td></td>=0D=0A<td>TVL (Toscana) DIG  L;7145=
+ (3904) v TVL (Toscana) DIG  L;7145 (3905)<br>Probable cause is n=
+o audio from reel(s) 3905 during the exception period</td>=0D=0A<=
+td>87%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D=
+"DarkGray">=0D=0A<td colspan=3D4><b>TVP TV PRATO DIG  L;8255</b> =
+- Local: 2 - Remote: 1 - Total: 3</td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp=
+ Match %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match=
+ % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td></td><td></td>=0D=0A<td style=3D"color:firebrick">TVP TV PRAT=
+O DIG  L;8255 (1816) v TVP TV PRATO DIG  L;8255 (1814)</td>=0D=0A=
+<td style=3D"color:firebrick">0%</td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>TV=
+RS DIG  L;6797</b> - Local: 1 - Remote: 2 - Total: 3</td>=0D=0A</=
+tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>External</b></=
+td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b></=
+td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>TVRS DIG  L;67=
+97 (1792) v TVRS DIG  L;6797 (1795)</td>=0D=0A<td>90%</td>=0D=0A<=
+/tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td>TVRS DIG  L;6797 (1792) v TVRS DIG  L;6797 (1793)</td>=0D=0A<=
+td>91%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<t=
+d></td><td></td>=0D=0A<td>TVRS DIG  L;6797 (1792) v TVRS DIG  L;6=
+797 (Both Other Reels - 1791,1794)</td>=0D=0A<td>92%</td>=0D=0A</=
+tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A=
+<td colspan=3D4><b>TWENTYSEVEN DIG/PSAT/TSAT N;7772</b> - Local: =
+3 - Remote: 1 - Total: 4</td>=0D=0A</tr>=0D=0A<tr style=3D"font-s=
+ize:100%">=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp Match =
+%</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match % Only=
+</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td>=
+TWENTYSEVEN DIG/PSAT/TSAT N;7772 (All 4 Reels - 171,173,175,178) =
+v TWENTYSEVEN ENG DIG/PSAT/TSAT N;8854 (Both Reels - 4171,4172)</=
+td>=0D=0A<td>43 - 46%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colsp=
+an=3D4><b>TWENTYSEVEN ENG DIG/PSAT/TSAT N;8854</b> - Local: 2 - R=
+emote: 0 - Total: 2</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:1=
+00%">=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp Match %</b>=
+</td>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match % Only</b><=
+/td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td>TWENT=
+YSEVEN ENG DIG/PSAT/TSAT N;8854 (Both Reels - 4171,4172) v TWENTY=
+SEVEN DIG/PSAT/TSAT N;7772 (All 4 Reels - 171,173,175,178)</td>=0D=0A=
+<td>43 - 46%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr sty=
+le=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4>=
+<b>UMBRIA TV DIG  L;6736</b> - Local: 1 - Remote: 2 - Total: 3</t=
+d>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>Exte=
+rnal</b></td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>Inte=
+rnal</b></td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<=
+tr style=3D"font-size:100%">=0D=0A<td>UMBRIA TV DIG  L;6736 (All =
+3 Reels - 2451,2452,2454) v TVA VICENZA CI SAT L;6512 (All 3 Reel=
+s - 2921,2922,2923)</td>=0D=0A<td>9%</td>=0D=0A<td></td><td></td>=
+=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D"DarkGray=
+">=0D=0A<td colspan=3D4><b>VB33 DIG  L;6955</b> - Local: 2 - Remo=
+te: 1 - Total: 3</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%=
+">=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp Match %</b></t=
+d>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match % Only</b></td=
+>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td=
+></td>=0D=0A<td>VB33 DIG  L;6955 (1714) v VB33 DIG  L;6955 (1715)=
+<br>Probable cause is no audio from reel(s) 1715 during the excep=
+tion period</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"fo=
+nt-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>VCO A=
+ZZURRA TV DIG  L;6610</b> - Local: 2 - Remote: 1 - Total: 3</td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>External</b>=
+</td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b>=
+</td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=
+=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>VCO AZZURRA=
+ TV DIG  L;6610 (1753) v VCO AZZURRA TV DIG  L;6610 (1754)<br>Pro=
+bable cause is no audio from reel(s) 1754 during the exception pe=
+riod</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size=
+:100%">=0D=0A<td></td><td></td>=0D=0A<td style=3D"color:firebrick=
+">VCO AZZURRA TV DIG  L;6610 (1753) v VCO AZZURRA TV DIG  L;6610 =
+(1757)</td>=0D=0A<td style=3D"color:firebrick">0%</td>=0D=0A</tr>=
+=0D=0A<tr style=3D"font-size:100%">=0D=0A<td></td><td></td>=0D=0A=
+<td>VCO AZZURRA TV DIG  L;6610 (1753) v VCO AZZURRA TV DIG  L;661=
+0 (1759)<br>Probable cause is no audio from reel(s) 1759 during t=
+he exception period</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr sty=
+le=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4>=
+<b>VIDEOLINA 2 DIG R L;6660</b> - Local: 2 - Remote: 2 - Total: 4=
+</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>E=
+xternal</b></td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>I=
+nternal</b></td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td style=3D"color:firebrick">=
+VIDEOLINA 2 DIG R L;6660 (3083) v VIDEOLINA DIG  L;6538 (853)</td=
+>=0D=0A<td style=3D"color:firebrick">100%</td>=0D=0A<td>VIDEOLINA=
+ 2 DIG R L;6660 (3083) v VIDEOLINA 2 DIG R L;6660 (3086)<br>Proba=
+ble cause is no audio from reel(s) 3086 during the exception peri=
+od</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:1=
+00%">=0D=0A<td style=3D"color:firebrick">VIDEOLINA 2 DIG R L;6660=
+ (3084) v VIDEOLINA DIG  L;6538 (853)</td>=0D=0A<td style=3D"colo=
+r:firebrick">100%</td>=0D=0A<td>VIDEOLINA 2 DIG R L;6660 (3084) v=
+ VIDEOLINA 2 DIG R L;6660 (3086)<br>Probable cause is no audio fr=
+om reel(s) 3086 during the exception period</td>=0D=0A<td>0%</td>=
+=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td>VIDEOLINA=
+ 2 DIG R L;6660 (All 4 Reels - 3082,3083,3084,3089) v VIDEOLINA D=
+IG  L;6538 (All 4 Reels - 851,852,854,859)</td>=0D=0A<td>98 - 100=
+%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-=
+size:100%">=0D=0A<td>VIDEOLINA 2 DIG R L;6660 (All 4 Reels - 3082=
+,3083,3084,3089) v VIDEOLINA CI SAT/TSAT L;6102 (All 3 Reels - 43=
+41,4342,4343)</td>=0D=0A<td>98 - 100%</td>=0D=0A<td></td><td></td=
+>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%" bgcolor=3D"DarkGra=
+y">=0D=0A<td colspan=3D4><b>VIDEOLINA CI SAT/TSAT L;6102</b> - Lo=
+cal: 3 - Remote: 0 - Total: 3</td>=0D=0A</tr>=0D=0A<tr style=3D"f=
+ont-size:100%">=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp M=
+atch %</b></td>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match %=
+ Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td>VIDEOLINA CI SAT/TSAT L;6102 (All 3 Reels - 4341,4342,4343) v=
+ VIDEOLINA 2 DIG R L;6660 (All 4 Reels - 3082,3083,3084,3089)</td=
+>=0D=0A<td>98 - 100%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colsp=
+an=3D4><b>VIDEOLINA DIG  L;6538</b> - Local: 3 - Remote: 1 - Tota=
+l: 4</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td>=
+<b>External</b></td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td>=
+<b>Internal</b></td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=
+=0D=0A<tr style=3D"font-size:100%">=0D=0A<td>VIDEOLINA DIG  L;653=
+8 (All 4 Reels - 851,852,854,859) v VIDEOLINA 2 DIG R L;6660 (All=
+ 4 Reels - 3082,3083,3084,3089)</td>=0D=0A<td>98 - 100%</td>=0D=0A=
+<td>VIDEOLINA DIG  L;6538 (854) v VIDEOLINA DIG  L;6538 (856)<br>=
+Probable cause is no audio from reel(s) 856 during the exception =
+period</td>=0D=0A<td>0%</td>=0D=0A</tr>=0D=0A<tr style=3D"font-si=
+ze:100%">=0D=0A<td style=3D"color:firebrick">VIDEOLINA DIG  L;653=
+8 (854) v VIDEOLINA 2 DIG R L;6660 (3081)</td>=0D=0A<td style=3D"=
+color:firebrick">98%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%" bgcolor=3D"DarkGray">=0D=0A<td colsp=
+an=3D4><b>VR VIDEOREGIONE (SICILIA) DIG  L;6747</b> - Local: 2 - =
+Remote: 2 - Total: 4</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:=
+100%">=0D=0A<td><b>External</b></td>=0D=0A<td><b>Unexp Match %</b=
+></td>=0D=0A<td><b>Internal</b></td>=0D=0A<td><b>Match % Only</b>=
+</td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td styl=
+e=3D"color:firebrick">VR VIDEOREGIONE (SICILIA) DIG  L;6747 (2473=
+) v TELECOLOR  DIG  L;6696 (1961)</td>=0D=0A<td style=3D"color:fi=
+rebrick">24%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr sty=
+le=3D"font-size:100%">=0D=0A<td style=3D"color:firebrick">VR VIDE=
+OREGIONE (SICILIA) DIG  L;6747 (2473) v TGS TELEGIORNALE DI SICIL=
+IA DIG  L;6614 (2002)</td>=0D=0A<td style=3D"color:firebrick">24%=
+</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-s=
+ize:100%">=0D=0A<td>VR VIDEOREGIONE (SICILIA) DIG  L;6747 (All 4 =
+Reels - 2473,2474,2475,2477) v ANTENNA SICILIA DIG L;6704 (All 4 =
+Reels - 1341,1344,1345,1347)</td>=0D=0A<td>24%</td>=0D=0A<td></td=
+><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td=
+>VR VIDEOREGIONE (SICILIA) DIG  L;6747 (All 4 Reels - 2473,2474,2=
+475,2477) v TELECOLOR  DIG  L;6696 (All 4 Reels - 1962,1964,1965,=
+1967)</td>=0D=0A<td>24%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td>VR VIDEOREGIONE (SICILIA) =
+DIG  L;6747 (All 4 Reels - 2473,2474,2475,2477) v TGS TELEGIORNAL=
+E DI SICILIA DIG  L;6614 (All 4 Reels - 2003,2004,2005,2007)</td>=
+=0D=0A<td>24%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr st=
+yle=3D"font-size:100%">=0D=0A<td>VR VIDEOREGIONE (SICILIA) DIG  L=
+;6747 (All 4 Reels - 2473,2474,2475,2477) v TRM T.R.MEDITERRANEA =
+DIG  L;6684 (All 3 Reels - 2341,2345,2347)</td>=0D=0A<td>24%</td>=
+=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:1=
+00%">=0D=0A<td>VR VIDEOREGIONE (SICILIA) DIG  L;6747 (All 4 Reels=
+ - 2473,2474,2475,2477) v SESTARETE (Sicilia) DIG L;7690 (All 4 R=
+eels - 3333,3334,3335,3337)</td>=0D=0A<td>22 - 24%</td>=0D=0A<td>=
+</td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td style=3D"color:firebrick">VR VIDEOREGIONE (SICILIA) DIG  L;67=
+47 (2474) v TELECOLOR  DIG  L;6696 (1961)</td>=0D=0A<td style=3D"=
+color:firebrick">23%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A=
+<tr style=3D"font-size:100%">=0D=0A<td style=3D"color:firebrick">=
+VR VIDEOREGIONE (SICILIA) DIG  L;6747 (2474) v TGS TELEGIORNALE D=
+I SICILIA DIG  L;6614 (2002)</td>=0D=0A<td style=3D"color:firebri=
+ck">23%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td style=3D"color:firebrick">VR VIDEOREGI=
+ONE (SICILIA) DIG  L;6747 (2474) v TRM T.R.MEDITERRANEA DIG  L;66=
+84 (2342)</td>=0D=0A<td style=3D"color:firebrick">23%</td>=0D=0A<=
+td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td style=3D"color:firebrick">VR VIDEOREGIONE (SICILIA) DIG  L;67=
+47 (2473) v TRM T.R.MEDITERRANEA DIG  L;6684 (2342)</td>=0D=0A<td=
+ style=3D"color:firebrick">23%</td>=0D=0A<td></td><td></td>=0D=0A=
+</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td style=3D"color:=
+firebrick">VR VIDEOREGIONE (SICILIA) DIG  L;6747 (2473) v TESTSOS=
+P_BRESCIA TELENORD;9913 (9224)</td>=0D=0A<td style=3D"color:fireb=
+rick">23%</td>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td>VR VIDEOREGIONE (SICILIA) DIG  L;6747 =
+(All 4 Reels - 2473,2474,2475,2477) v TELE ONE DIG  L;8344 (All 4=
+ Reels - 3321,3324,3325,3327)</td>=0D=0A<td>21 - 23%</td>=0D=0A<t=
+d></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A=
+<td style=3D"color:firebrick">VR VIDEOREGIONE (SICILIA) DIG  L;67=
+47 (2474) v TESTSOSP_BRESCIA TELENORD;9913 (9224)</td>=0D=0A<td s=
+tyle=3D"color:firebrick">22%</td>=0D=0A<td></td><td></td>=0D=0A</=
+tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td style=3D"color:fi=
+rebrick">VR VIDEOREGIONE (SICILIA) DIG  L;6747 (2473) v TELE ONE =
+DIG  L;8344 (3323)</td>=0D=0A<td style=3D"color:firebrick">22%</t=
+d>=0D=0A<td></td><td></td>=0D=0A</tr>=0D=0A<tr style=3D"font-size=
+:100%" bgcolor=3D"DarkGray">=0D=0A<td colspan=3D4><b>ZONA DAZN 1 =
+DIG/PSAT S;9508</b> - Local: 4 - Remote: 0 - Total: 4</td>=0D=0A<=
+/tr>=0D=0A<tr style=3D"font-size:100%">=0D=0A<td><b>External</b><=
+/td>=0D=0A<td><b>Unexp Match %</b></td>=0D=0A<td><b>Internal</b><=
+/td>=0D=0A<td><b>Match % Only</b></td>=0D=0A</tr>=0D=0A<tr style=3D=
+"font-size:100%">=0D=0A<td></td><td></td>=0D=0A<td>ZONA DAZN 1 DI=
+G/PSAT S;9508 (6612) v ZONA DAZN 1 DIG/PSAT S;9508 (6619)</td>=0D=0A=
+<td>94%</td>=0D=0A</tr>=0D=0A</table>=0D=0A<br>=0D=0A
+
